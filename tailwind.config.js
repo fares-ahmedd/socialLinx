@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 // eslint-disable-next-line
 const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -19,10 +20,10 @@ module.exports = {
     },
     extend: {
       colors: {
-        "primary-500": "#877EFF",
-        "primary-600": "#5D5FEF",
+        "primary-300": "#ad2f00",
+        "primary-500": "#f93e00",
+        "primary-700": "#e5795c",
         "secondary-500": "#FFB620",
-        "t-color": "#e6edf3",
         "off-white": "#D0DFFF",
         red: "#FF5A5A",
         "dark-1": "#0D1117",
@@ -42,7 +43,7 @@ module.exports = {
         465: "465px",
       },
       fontFamily: {
-        "Open-Sans": ["Open Sans", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {
