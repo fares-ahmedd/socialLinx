@@ -14,7 +14,7 @@ function AuthLayout() {
           <img
             src="https://assets.mobileworldlive.com/wp-content/uploads/2019/05/16121325/social-media-apps-2-shutterstock-650-e1576686057538.jpg"
             alt="App Poster"
-            className="hidden object-cover w-1/2 h-screen bg-no-repeat md:block "
+            className="hidden w-1/2 md:block "
           />
         </>
       )}
