@@ -289,3 +289,11 @@
 .animate-pulse0112 {
   animation: spinner-plncf9 1s infinite;
 }
+
+form p {
+  color: red;
+}
+
+ol li {
+  background-color: #21262d;
+}

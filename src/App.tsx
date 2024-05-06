@@ -4,6 +4,7 @@ import SignUpPage from "./pages/auth/SignUpPage";
 import Home from "./pages/home/Home";
 import AuthLayout from "./pages/auth/AuthLayout";
 import AppLayout from "./pages/home/AppLayout";
+import { Toaster } from "@/components/ui/toaster";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Route index element={<Home />} />
           </Route>
         </Routes>
+        <Toaster />
       </main>
     </BrowserRouter>
   );
