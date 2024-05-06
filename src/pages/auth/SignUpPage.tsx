@@ -15,12 +15,19 @@ import { useForm } from "react-hook-form";
 import { SignupValidation } from "@/lib/validation";
 import { z } from "zod";
 import LoadingSpinner from "../../ui/LoadingSpinner";
-import { Link } from "react-router-dom";
-import { createUserAccount } from "@/lib/appwrite/api";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  useCreateUserAccount,
+  useSignInAccount,
+} from "@/lib/react-query/QueriesAndMutations";
+import { useUserContext } from "@/context/AuthContext";
 function SignUpPage() {
+  const { mutateAsync: createNewUserAccount, isPending: isCreating } =
+    useCreateUserAccount();
+  const { mutateAsync: signInAccount } = useSignInAccount();
   const { toast } = useToast();
-
-  const isLoading = false;
+  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const navigate = useNavigate();
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -34,13 +41,30 @@ function SignUpPage() {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
-    const newUser = await createUserAccount(values);
+    const newUser = await createNewUserAccount(values);
     if (!newUser) {
       toast({
         title: "Sign up Failed. please try again.",
       });
     }
-    // const session = await signInAccount()
+    const session = await signInAccount({
+      email: values.email,
+      password: values.password,
+    });
+    if (!session) {
+      toast({
+        title: "Sign in Failed. please try again.",
+      });
+    }
+    const isLoggedIn = await checkAuthUser();
+    if (isLoggedIn) {
+      form.reset();
+      navigate("/");
+    } else {
+      return toast({
+        title: "Sign up Failed. please try again.",
+      });
+    }
   }
 
   return (
@@ -63,7 +87,12 @@ function SignUpPage() {
             <FormItem>
               <FormLabel>Name:</FormLabel>
               <FormControl>
-                <Input type="text" className="shad-input" {...field} />
+                <Input
+                  type="text"
+                  className="shad-input"
+                  {...field}
+                  disabled={isCreating}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -76,7 +105,12 @@ function SignUpPage() {
             <FormItem>
               <FormLabel>Username:</FormLabel>
               <FormControl>
-                <Input type="text" className="shad-input" {...field} />
+                <Input
+                  type="text"
+                  className="shad-input"
+                  {...field}
+                  disabled={isCreating}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -89,7 +123,12 @@ function SignUpPage() {
             <FormItem>
               <FormLabel>Email:</FormLabel>
               <FormControl>
-                <Input type="email" className="shad-input" {...field} />
+                <Input
+                  type="email"
+                  className="shad-input"
+                  {...field}
+                  disabled={isCreating}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -102,7 +141,12 @@ function SignUpPage() {
             <FormItem>
               <FormLabel>Password:</FormLabel>
               <FormControl>
-                <Input type="password" className="shad-input" {...field} />
+                <Input
+                  type="password"
+                  className="shad-input"
+                  {...field}
+                  disabled={isCreating}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -112,9 +156,9 @@ function SignUpPage() {
         <Button
           type="submit"
           className="shad-button_primary"
-          disabled={isLoading}
+          disabled={isCreating}
         >
-          {isLoading ? (
+          {isCreating ? (
             <>
               <LoadingSpinner /> &nbsp; Loading...
             </>

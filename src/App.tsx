@@ -5,23 +5,29 @@ import Home from "./pages/home/Home";
 import AuthLayout from "./pages/auth/AuthLayout";
 import AppLayout from "./pages/home/AppLayout";
 import { Toaster } from "@/components/ui/toaster";
+import AuthProvider from "./context/AuthContext";
+import { QueryProvider } from "./lib/react-query/QueryProvider";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <main className="flex h-screen">
-        <Routes>
-          <Route element={<AuthLayout />}>
-            <Route path="/signin" element={<SignInPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-          </Route>
+      <QueryProvider>
+        <AuthProvider>
+          <main className="flex h-screen">
+            <Routes>
+              <Route element={<AuthLayout />}>
+                <Route path="/signin" element={<SignInPage />} />
+                <Route path="/signup" element={<SignUpPage />} />
+              </Route>
 
-          <Route element={<AppLayout />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-        <Toaster />
-      </main>
+              <Route element={<AppLayout />}>
+                <Route index element={<Home />} />
+              </Route>
+            </Routes>
+            <Toaster />
+          </main>
+        </AuthProvider>
+      </QueryProvider>
     </BrowserRouter>
   );
 };
