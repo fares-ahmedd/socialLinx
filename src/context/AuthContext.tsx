@@ -27,16 +27,23 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<IUser>(InitialUser);
   const [isLoading, setIsLoading] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
   const navigate = useNavigate();
   useEffect(() => {
-    if (
-      localStorage.getItem("cookieFallback") === "[]" ||
-      !localStorage.getItem("cookieFallback")
-    ) {
-      navigate("/signin");
+    setIsMounted(true);
+
+    if (!isMounted) {
+      if (
+        localStorage.getItem("cookieFallback") === "[]" ||
+        !localStorage.getItem("cookieFallback")
+      ) {
+        navigate("/login");
+      }
+      checkAuthUser();
     }
-    checkAuthUser();
-  }, []);
+  }, [isMounted, navigate]);
+
   async function checkAuthUser(): Promise<boolean | undefined> {
     try {
       const currentAccount = await getCurrentUser();

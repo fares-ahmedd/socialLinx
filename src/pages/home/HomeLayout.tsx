@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import LeftSidebar from "../../features/left-sidebar";
-import TopSidebar from "@/features/TopSidebar";
+import TopSidebar from "@/features/top-sidebar/TopSidebar";
+import BottomSidebar from "@/features/bottom-sidebar/BottomSidebar";
 function AppLayout() {
   return (
     <main className="w-full md:flex">
@@ -10,6 +11,7 @@ function AppLayout() {
         <Outlet />
       </section>
       {/* <RightSidebar /> */}
+      <BottomSidebar />
     </main>
   );
 }

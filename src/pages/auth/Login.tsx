@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/components/ui/use-toast";
-
 import {
   Form,
   FormControl,
@@ -18,10 +17,12 @@ import LoadingSpinner from "../../ui/LoadingSpinner";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignInAccount } from "@/lib/react-query/QueriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
-function SignInPage() {
-  const { mutateAsync: signInAccount } = useSignInAccount();
+
+function LoginPage() {
+  const { mutateAsync: signInAccount, isPending: isLogging } =
+    useSignInAccount();
   const { toast } = useToast();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { checkAuthUser } = useUserContext();
   const navigate = useNavigate();
   // 1. Define your form.
   const form = useForm<z.infer<typeof SigninValidation>>({
@@ -81,7 +82,7 @@ function SignInPage() {
                   type="email"
                   className="shad-input"
                   {...field}
-                  disabled={isUserLoading}
+                  disabled={isLogging}
                 />
               </FormControl>
               <FormMessage />
@@ -99,7 +100,7 @@ function SignInPage() {
                   type="password"
                   className="shad-input"
                   {...field}
-                  disabled={isUserLoading}
+                  disabled={isLogging}
                 />
               </FormControl>
               <FormMessage />
@@ -110,9 +111,9 @@ function SignInPage() {
         <Button
           type="submit"
           className="shad-button_primary"
-          disabled={isUserLoading}
+          disabled={isLogging}
         >
-          {isUserLoading ? (
+          {isLogging ? (
             <>
               <LoadingSpinner /> &nbsp; Loading...
             </>
@@ -134,4 +135,4 @@ function SignInPage() {
   );
 }
 
-export default SignInPage;
+export default LoginPage;

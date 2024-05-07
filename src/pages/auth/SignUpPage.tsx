@@ -172,7 +172,7 @@ function SignUpPage() {
         <p className="mt-2 text-center text-small-regular text-light-2">
           Already have an account?{" "}
           <Link
-            to={"/signin"}
+            to={"/login"}
             className="text-lg font-bold text-primary-500 hover:text-primary-300 hover:underline"
           >
             Login
