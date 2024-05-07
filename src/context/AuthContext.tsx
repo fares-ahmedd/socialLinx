@@ -31,14 +31,16 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (
       localStorage.getItem("cookieFallback") === "[]" ||
-      localStorage.getItem("cookieFallback") === null
-    )
+      !localStorage.getItem("cookieFallback")
+    ) {
       navigate("/signin");
+    }
     checkAuthUser();
-  }, [navigate]);
-  async function checkAuthUser(): Promise<boolean> {
+  }, []);
+  async function checkAuthUser(): Promise<boolean | undefined> {
     try {
       const currentAccount = await getCurrentUser();
+
       if (currentAccount) {
         setUser({
           id: currentAccount.$id,
@@ -50,10 +52,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         });
         setIsAuth(true);
         return true;
-      } else {
-        setUser(InitialUser);
-        setIsAuth(false);
-        return false;
       }
     } catch (error) {
       console.log(error);

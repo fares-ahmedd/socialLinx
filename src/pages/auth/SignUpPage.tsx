@@ -51,10 +51,13 @@ function SignUpPage() {
       email: values.email,
       password: values.password,
     });
+    console.log(session);
+
     if (!session) {
       toast({
         title: "Sign in Failed. please try again.",
       });
+      return;
     }
     const isLoggedIn = await checkAuthUser();
     if (isLoggedIn) {

@@ -6,7 +6,7 @@ export type IContextType = {
   setUser: React.Dispatch<React.SetStateAction<IUser>>;
   isAuth: boolean;
   setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
-  checkAuthUser: () => Promise<boolean>;
+  checkAuthUser: () => Promise<boolean | undefined>;
 };
 
 export type INavLink = {

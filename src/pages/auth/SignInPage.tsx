@@ -33,26 +33,27 @@ function SignInPage() {
   });
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof SigninValidation>) {
-    const session = await signInAccount({
-      email: values.email,
-      password: values.password,
-    });
+  async function onSubmit(user: z.infer<typeof SigninValidation>) {
+    const session = await signInAccount(user);
     console.log(session);
 
     if (!session) {
       toast({
         title: "Sign in Failed. please try again.",
       });
+      return;
     }
     const isLoggedIn = await checkAuthUser();
+    console.log(isLoggedIn);
+
     if (isLoggedIn) {
       form.reset();
       navigate("/");
     } else {
-      return toast({
-        title: "Sign up Failed. please try again.",
+      toast({
+        title: "Login Failed. please try again.",
       });
+      return;
     }
   }
 

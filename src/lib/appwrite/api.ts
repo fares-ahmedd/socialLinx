@@ -49,10 +49,10 @@ export async function saveUserToDB(user: {
 
 export async function singInAccount(user: { email: string; password: string }) {
   try {
-    const session = await account.createEmailPasswordSession(
-      user.email,
-      user.password
-    );
+    console.log(user);
+
+    const session = await account.createEmailSession(user.email, user.password);
+    console.log(session);
 
     return session;
   } catch (error) {

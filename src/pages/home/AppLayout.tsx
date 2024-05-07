@@ -1,5 +1,5 @@
 function AppLayout() {
-  return <div>AppLayout</div>;
+  return <div className="w-full md:flex"></div>;
 }
 
 export default AppLayout;
