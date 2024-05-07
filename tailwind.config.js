@@ -32,6 +32,7 @@ module.exports = {
         "dark-4": "#30363D",
         "light-1": "#cdcdcd",
         "light-2": "#EFEFEF",
+        "light-3": "#EFEFEF",
       },
       screens: {
         xs: "480px",

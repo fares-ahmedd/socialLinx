@@ -3,6 +3,7 @@ import { CiLogout } from "react-icons/ci";
 import { useSignOutAccount } from "@/lib/react-query/QueriesAndMutations";
 import { useEffect } from "react";
 import { useUserContext } from "@/context/AuthContext";
+import Logo from "@/ui/Logo";
 
 function TopSidebar() {
   const { mutate: signOut, isSuccess } = useSignOutAccount();
@@ -16,12 +17,7 @@ function TopSidebar() {
   return (
     <section className="topbar">
       <div className="px-3 py-2 flex-between">
-        <Link to={"/"} className="flex items-center gap-3">
-          <div className="flex items-center">
-            <img src={"/logo.png"} alt="Logo" className="w-[50px]" />
-            <span className="logo-text">SocialLinx</span>
-          </div>{" "}
-        </Link>
+        <Logo />
 
         <div className="gap-3 flex-center">
           <Link to={`/profile/${user.id}`}>

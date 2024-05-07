@@ -38,7 +38,7 @@
   }
 
   .base-medium {
-    @apply text-[16px] font-medium leading-[140%];
+    @apply text-[20px] font-medium leading-[140%];
   }
 
   .base-regular {
@@ -224,7 +224,7 @@
   }
 
   .leftsidebar-link {
-    @apply rounded-lg base-medium hover:bg-primary-500 transition;
+    @apply rounded-lg  base-medium hover:bg-primary-300 transition;
   }
 
   /* Post Card */
