@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignInPage from "./pages/auth/SignInPage";
 import SignUpPage from "./pages/auth/SignUpPage";
-import Home from "./pages/home/Home";
+import Home from "./features/Home";
 import AuthLayout from "./pages/auth/AuthLayout";
-import AppLayout from "./pages/home/AppLayout";
+import AppLayout from "./pages/home/HomeLayout";
 import { Toaster } from "@/components/ui/toaster";
 import AuthProvider from "./context/AuthContext";
 import { QueryProvider } from "./lib/react-query/QueryProvider";
@@ -16,7 +16,7 @@ const App = () => {
           <main className="flex h-screen">
             <Routes>
               <Route element={<AuthLayout />}>
-                <Route path="/signin" element={<SignInPage />} />
+                <Route path="/login" element={<SignInPage />} />
                 <Route path="/signup" element={<SignUpPage />} />
               </Route>
 

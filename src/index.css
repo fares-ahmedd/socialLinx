@@ -19,7 +19,7 @@
     @apply text-[36px] font-bold leading-[140%] tracking-tighter;
   }
   .logo-text {
-    @apply text-3xl text-transparent font-extralight bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text select-none;
+    @apply text-2xl text-transparent font-extralight bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text select-none;
   }
   .h1-semibold {
     @apply text-[36px] font-semibold leading-[140%] tracking-tighter;
@@ -277,6 +277,9 @@
 
   .shad-button_ghost {
     @apply flex gap-4 items-center justify-start hover:bg-transparent hover:text-white !important;
+  }
+  .icon-button {
+    @apply p-1 text-3xl border rounded-md cursor-pointer text-primary-500 border-primary-500 hover:bg-dark-4;
   }
 }
 
