@@ -15,13 +15,19 @@ import { Textarea } from "@/components/ui/textarea";
 import FileUploader from "./FileUploader";
 import { PostValidation } from "@/lib/validation";
 import { Models } from "appwrite";
+import { useCreatePost } from "@/lib/react-query/QueriesAndMutations";
+import { useUserContext } from "@/context/AuthContext";
+import { toast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 type PostFormPorps = {
   post?: Models.Document;
 };
 
 function PostForm({ post }: PostFormPorps) {
-  const { mutateAsync: createPost, isPending: isLoading } = u;
+  const { user } = useUserContext();
+  const { mutateAsync: createPost, isPending: isLoading } = useCreatePost();
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     defaultValues: {
@@ -32,10 +38,19 @@ function PostForm({ post }: PostFormPorps) {
     },
   });
 
-  function onSubmit(values: z.infer<typeof PostValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof PostValidation>) {
+    const newPost = await createPost({
+      ...values,
+      userId: user.id,
+    });
+    if (!newPost) {
+      toast({
+        title:
+          "invalid Post , please try again and make sure you enter the correct values",
+      });
+      return;
+    }
+    navigate("/");
   }
 
   return (
@@ -98,7 +113,7 @@ function PostForm({ post }: PostFormPorps) {
         />
         <FormField
           control={form.control}
-          name="location"
+          name="tags"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="shad-form_label">Add Tags</FormLabel>

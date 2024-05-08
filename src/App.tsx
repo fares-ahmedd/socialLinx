@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/auth/Login";
 import SignUpPage from "./pages/auth/SignUpPage";
-import Home from "./pages/home/Home";
+import Home from "./pages/home/index/Home";
 import AuthLayout from "./pages/auth/AuthLayout";
 import AppLayout from "./pages/home/HomeLayout";
 import { Toaster } from "@/components/ui/toaster";

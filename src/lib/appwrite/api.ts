@@ -87,6 +87,7 @@ export async function singOutAccount() {
   }
 }
 
+// todo: CreatePost
 export async function createPost(post: INewPost) {
   try {
     const uploadedFile = await uploadFile(post.file[0]);
@@ -99,7 +100,31 @@ export async function createPost(post: INewPost) {
       await deleteFile(uploadedFile.$id);
       throw Error;
     }
-  } catch (error) {}
+
+    const tags = post.tags?.replace(/ /g, "").split(",") || [];
+
+    const newPost = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      ID.unique(),
+      {
+        creator: post.userId,
+        caption: post.caption,
+        imageUrl: fileUrl,
+        imageId: uploadedFile.$id,
+        location: post.location,
+        tags: tags,
+      }
+    );
+
+    if (!newPost) {
+      await deleteFile(uploadedFile.$id);
+      throw Error;
+    }
+    return newPost;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function uploadFile(file: File) {
@@ -143,4 +168,16 @@ export async function deleteFile(fileId: string) {
   } catch (error) {
     console.log(error);
   }
+}
+
+// todo: end CreatePost
+
+export async function getRecentPosts() {
+  const posts = await databases.listDocuments(
+    appwriteConfig.databaseId,
+    appwriteConfig.postCollectionId,
+    [Query.orderDesc("$createdAt"), Query.limit(20)]
+  );
+  if (!posts) throw Error;
+  return posts;
 }
