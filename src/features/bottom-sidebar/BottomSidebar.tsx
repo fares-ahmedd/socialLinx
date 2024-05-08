@@ -22,6 +22,7 @@ function BottomSidebar() {
               isActive ? "bg-primary-300" : ""
             } rounded-lg grow`
           }
+          key={index}
         >
           {icons[index]} {link.label}
         </NavLink>
