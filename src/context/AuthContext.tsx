@@ -32,7 +32,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   useEffect(() => {
     setIsMounted(true);
-
+    setIsLoading(true);
     if (!isMounted) {
       if (
         localStorage.getItem("cookieFallback") === "[]" ||
@@ -47,7 +47,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   async function checkAuthUser(): Promise<boolean | undefined> {
     try {
       const currentAccount = await getCurrentUser();
-
       if (currentAccount) {
         setUser({
           id: currentAccount.$id,

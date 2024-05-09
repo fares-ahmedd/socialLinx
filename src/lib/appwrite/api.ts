@@ -96,6 +96,8 @@ export async function createPost(post: INewPost) {
 
     const fileUrl = getFilePreview(uploadedFile.$id);
 
+    console.log({ fileUrl });
+
     if (!fileUrl) {
       await deleteFile(uploadedFile.$id);
       throw Error;

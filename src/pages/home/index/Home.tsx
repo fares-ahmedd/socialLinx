@@ -5,9 +5,13 @@ import PostItem from "./PostItem";
 
 function Home() {
   const { data: posts, isPending: isLoading, isError } = useGetRecentPosts();
-  console.log(posts);
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading || isError)
+    return (
+      <main className="justify-center w-full flex-center">
+        {isError ? "Something went wrong 💥" : <LoadingSpinner />}
+      </main>
+    );
   return (
     <main className="flex flex-1">
       <div className="home-container">

@@ -1,8 +1,14 @@
-import { getTime } from "@/utils/helper";
+import { multiFormatDateString } from "@/utils/helper";
 import { Models } from "appwrite";
 import { Link } from "react-router-dom";
+import { FaEdit } from "react-icons/fa";
+import { useUserContext } from "@/context/AuthContext";
+import Tooltip from "@/ui/Tooltip";
 
-function PostCreatorInfo({ post }: Models.Document) {
+function PostCreatorInfo({ post }: { post: Models.Document }) {
+  const { user } = useUserContext();
+
+  if (!post.creator) return;
   return (
     <div className="flex-between">
       <div className="flex items-center gap-3">
@@ -19,12 +25,20 @@ function PostCreatorInfo({ post }: Models.Document) {
           </p>
           <div className="gap-2 text-gray-500 flex-center">
             <p className="subtle-semibold lg:small-regular">
-              {getTime(post.$createdAt)}
+              {multiFormatDateString(post.$createdAt)}
             </p>
             -<p className="subtle-semibold lg:small-regular">{post.location}</p>
           </div>
         </div>
       </div>
+      <Link
+        to={`/update-post/${post.$id}`}
+        className={`${user.id !== post.creator.$id && "hidden"}`}
+      >
+        <Tooltip content="Edit Post" position="top">
+          <FaEdit className="icon-button" />
+        </Tooltip>
+      </Link>
     </div>
   );
 }

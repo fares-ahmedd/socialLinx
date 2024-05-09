@@ -1,9 +1,11 @@
 import { useUserContext } from "@/context/AuthContext";
 import { Link } from "react-router-dom";
+import UserInfoSkeleton from "./UserInfoSkeleton";
 
 function UserInfo() {
-  const { user } = useUserContext();
+  const { user, isLoading } = useUserContext();
 
+  if (isLoading) return <UserInfoSkeleton />;
   return (
     <Link to={`/profile/${user.id}`} className="flex items-center gap-3">
       <img
