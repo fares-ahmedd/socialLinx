@@ -25,14 +25,13 @@ const AuthContext = createContext<IContextType>(InitialState);
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<IUser>(InitialUser);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
   const navigate = useNavigate();
   useEffect(() => {
     setIsMounted(true);
-    setIsLoading(true);
     if (!isMounted) {
       if (
         localStorage.getItem("cookieFallback") === "[]" ||

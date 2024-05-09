@@ -12,11 +12,13 @@ function PostContent({ post }: { post: Models.Document }) {
   function handleClick() {
     setIsCollapse(false);
   }
+  const wordsCount = post.caption.split(" ").length;
+
   return (
     <>
       <div className="py-5 small-medium lg:base-medium">
         <p className="text-white ">
-          {isCollapse ? (
+          {isCollapse && wordsCount > 15 ? (
             <>
               {displayText}
               <button

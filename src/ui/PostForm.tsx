@@ -19,6 +19,7 @@ import { useCreatePost } from "@/lib/react-query/QueriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "./LoadingSpinner";
 
 type PostFormPorps = {
   post?: Models.Document;
@@ -70,6 +71,7 @@ function PostForm({ post }: PostFormPorps) {
                   className="shad-textarea custom-scrollbar"
                   placeholder="Post caption..."
                   {...field}
+                  disabled={isLoading}
                 />
               </FormControl>
 
@@ -105,6 +107,7 @@ function PostForm({ post }: PostFormPorps) {
                   className="post-form"
                   placeholder="please enter your location"
                   {...field}
+                  disabled={isLoading}
                 />
               </FormControl>
               <FormMessage />
@@ -123,6 +126,7 @@ function PostForm({ post }: PostFormPorps) {
                   className="post-form"
                   placeholder="Example: #Reactjs #web elc..."
                   {...field}
+                  disabled={isLoading}
                 />
               </FormControl>
               <FormMessage />
@@ -130,14 +134,25 @@ function PostForm({ post }: PostFormPorps) {
           )}
         />
         <div className="flex items-center justify-end gap-4">
-          <Button type="button" className="shad-button_dark_4">
+          <Button
+            type="button"
+            className="shad-button_dark_4"
+            disabled={isLoading}
+          >
             Cancel
           </Button>
           <Button
             type="submit"
-            className="h-12 bg-primary-500 hover:bg-primary-300 md:w-[150px]"
+            className="h-12 bg-primary-500 hover:bg-primary-300 md:w-[150px] flex-center gap-2 "
+            disabled={isLoading}
           >
-            Confirm
+            {isLoading ? (
+              <>
+                <LoadingSpinner /> Creating...
+              </>
+            ) : (
+              "Confirm"
+            )}
           </Button>
         </div>
       </form>
