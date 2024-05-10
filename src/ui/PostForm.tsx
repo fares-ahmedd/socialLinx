@@ -23,9 +23,10 @@ import LoadingSpinner from "./LoadingSpinner";
 
 type PostFormPorps = {
   post?: Models.Document;
+  action: "create" | "update";
 };
 
-function PostForm({ post }: PostFormPorps) {
+function PostForm({ post, action }: PostFormPorps) {
   const { user } = useUserContext();
   const { mutateAsync: createPost, isPending: isLoading } = useCreatePost();
   const navigate = useNavigate();

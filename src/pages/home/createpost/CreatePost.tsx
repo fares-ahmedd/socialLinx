@@ -1,5 +1,5 @@
+import PostForm from "@/ui/PostForm";
 import { FcAddImage } from "react-icons/fc";
-import PostForm from "../../../ui/PostForm";
 
 function CreatePost() {
   return (
@@ -9,7 +9,7 @@ function CreatePost() {
           <FcAddImage className="text-3xl" />
           <h2 className="w-full text-left h3-bold md:h2-bold">Create a Post</h2>
         </div>
-        <PostForm />
+        <PostForm action="create" />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ import Explore from "./pages/home/Explore";
 import Saved from "./pages/home/Saved";
 import AllUsers from "./pages/home/AllUsers";
 import CreatePost from "./pages/home/createpost/CreatePost";
-import EditPost from "./pages/home/EditPost";
+import EditPost from "./pages/home/editPost/EditPost";
 import Profile from "./pages/home/Profile";
 import UpdateProfile from "./pages/home/UpdateProfile";
 
