@@ -1,9 +1,10 @@
 import { multiFormatDateString } from "@/utils/helper";
 import { Models } from "appwrite";
 import { Link } from "react-router-dom";
-import { FaEdit, FaSave } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { useUserContext } from "@/context/AuthContext";
 import Tooltip from "@/ui/Tooltip";
+import SavePost from "./SavePost";
 
 function PostCreatorInfo({ post }: { post: Models.Document }) {
   const { user } = useUserContext();
@@ -36,12 +37,10 @@ function PostCreatorInfo({ post }: { post: Models.Document }) {
         className={`${user.id !== post.creator.$id && "hidden"}`}
       >
         <div className="gap-2 flex-center">
-          <Tooltip content="Edit Post" position="top">
+          <Tooltip content="edit post" position="top">
             <FaEdit className="icon-button" />
           </Tooltip>
-          <Tooltip content="Save Post" position="top">
-            <FaSave className="icon-button" />
-          </Tooltip>
+          <SavePost post={post} />
         </div>
       </Link>
     </div>
