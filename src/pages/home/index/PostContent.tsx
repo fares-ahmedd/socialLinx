@@ -1,6 +1,7 @@
 import { Models } from "appwrite";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import LikePost from "./LikePost";
 
 function PostContent({ post }: { post: Models.Document }) {
   const [isCollapse, setIsCollapse] = useState(true);
@@ -41,13 +42,19 @@ function PostContent({ post }: { post: Models.Document }) {
         </ul>
       </div>
       <Link to={`/posts/${post.$id}`}>
-        <img
-          src={post.imageUrl || "/no-post-image.jpg"}
-          alt="no post"
-          loading="lazy"
-          className="w-full h-full max-w-[400px] max-h-[400px] md:max-w-[500px] md:max-h-[500px] block m-auto rounded-md"
-        />
+        <div className="max-w-[500px] max-h-[500px] w-[100%] h-[500px]   block m-auto rounded-md bg-dark-4  relative">
+          <h1 className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 animate-pulse">
+            Loading image...
+          </h1>
+          <img
+            src={post.imageUrl || "/no-post-image.jpg"}
+            alt="no post"
+            loading="lazy"
+            className="absolute z-10 w-full h-full "
+          />
+        </div>
       </Link>
+      <LikePost post={post} />
     </>
   );
 }

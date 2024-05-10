@@ -5,9 +5,15 @@ interface TooltipProps {
   content: string;
   position: "top" | "right" | "bottom" | "left";
   children: React.ReactNode;
+  className: string;
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ content, position, children }) => {
+const Tooltip: React.FC<TooltipProps> = ({
+  content,
+  position,
+  children,
+  className,
+}) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const handleMouseEnter = () => {
@@ -20,14 +26,14 @@ const Tooltip: React.FC<TooltipProps> = ({ content, position, children }) => {
 
   return (
     <div
-      className="relative inline-block"
+      className={`relative inline-block ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {children}
       {showTooltip && (
         <div
-          className={`absolute bg-dark-4 opacity-80 text-white py-1 px-2 rounded ${positionClasses[position]}`}
+          className={`absolute bg-dark-4 opacity-80 text-white py-1 px-2 rounded ${positionClasses[position]} z-50`}
         >
           {content}
         </div>
