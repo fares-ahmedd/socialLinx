@@ -32,7 +32,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   useEffect(() => {
     setIsMounted(true);
-    console.log(isMounted);
 
     if (!isMounted) {
       if (

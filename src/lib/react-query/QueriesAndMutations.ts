@@ -15,6 +15,7 @@ import {
 } from "../appwrite/api";
 import { INewPost, INewUser, IUpdatePost } from "@/types";
 import { QUERY_KEYS } from "./queryKeys";
+import { useMemo } from "react";
 
 export const useCreateUserAccount = () => {
   return useMutation({
@@ -123,10 +124,15 @@ export const useDeleteSavedPost = () => {
 };
 
 export const useGetCurrentUser = () => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.GET_CURRENT_USER],
-    queryFn: getCurrentUser,
-  });
+  const getCurrentUserQuery = useMemo(
+    () => ({
+      queryKey: [QUERY_KEYS.GET_CURRENT_USER],
+      queryFn: getCurrentUser,
+    }),
+    []
+  );
+
+  return useQuery(getCurrentUserQuery);
 };
 
 export const useGetPostById = (postId: string) => {

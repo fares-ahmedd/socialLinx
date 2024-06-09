@@ -21,7 +21,7 @@ import {
 } from "@/lib/react-query/QueriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 import { toast } from "@/components/ui/use-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
 
 type PostFormPorps = {
@@ -45,6 +45,8 @@ function PostForm({ post, action }: PostFormPorps) {
   });
 
   async function onSubmit(values: z.infer<typeof PostValidation>) {
+    console.log(values);
+
     if (post && action === "update") {
       const updatedPost = await updatePost({
         ...values,
@@ -58,6 +60,7 @@ function PostForm({ post, action }: PostFormPorps) {
       }
       return navigate(`/posts/${post.$id}`);
     }
+
     const newPost = await createPost({
       ...values,
       userId: user.id,
@@ -152,13 +155,15 @@ function PostForm({ post, action }: PostFormPorps) {
           )}
         />
         <div className="flex items-center justify-end gap-4">
-          <Button
-            type="button"
-            className="shad-button_dark_4"
-            disabled={isLoading || isUpdating}
-          >
-            Cancel
-          </Button>
+          <Link to={".."}>
+            <Button
+              type="button"
+              className="shad-button_dark_4"
+              disabled={isLoading || isUpdating}
+            >
+              Cancel
+            </Button>
+          </Link>
           <Button
             type="submit"
             className="h-12 bg-primary-500 hover:bg-primary-300 md:w-[150px] flex-center gap-2 "

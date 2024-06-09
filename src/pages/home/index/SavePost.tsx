@@ -9,11 +9,12 @@ import { Models } from "appwrite";
 import { useEffect, useState } from "react";
 
 function SavePost({ post }: { post: Models.Document | undefined }) {
+  const [delayClick, setDelayClick] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const { mutate: savePost } = useSavePost();
-  const { data: currentUser, isLoading } = useGetCurrentUser();
-  const { mutate: deleteSavedPost, isPending: isDeleting } =
-    useDeleteSavedPost();
+  const { data: currentUser } = useGetCurrentUser();
+
+  const { mutate: deleteSavedPost } = useDeleteSavedPost();
   const { user } = useUserContext();
   const savedPostRecord = currentUser?.save.find(
     (record: Models.Document) => record.post.$id === post?.$id
@@ -23,20 +24,20 @@ function SavePost({ post }: { post: Models.Document | undefined }) {
     setIsSaved(savedPostRecord ? true : false);
   }, [currentUser, savedPostRecord]);
   function handleSavePost() {
+    setDelayClick(true);
+    setTimeout(() => {
+      setDelayClick(false);
+    }, 4000);
     if (savedPostRecord) {
       setIsSaved(false);
       return deleteSavedPost(savedPostRecord.$id);
     }
-    savePost({ postId: post?.$id, userId: user.id });
     setIsSaved(true);
+    savePost({ postId: post?.$id, userId: user.id });
   }
 
-  if (isLoading)
-    return (
-      <div className="w-[30px] h-[30px] rounded-lg bg-dark-4 animate-pulse"></div>
-    );
   return (
-    <button onClick={handleSavePost} disabled={isDeleting}>
+    <button onClick={handleSavePost} disabled={delayClick}>
       <Tooltip content="save post" position="top">
         <img
           src={`${isSaved ? "/save-sold.png" : "/save-outline.png"}`}

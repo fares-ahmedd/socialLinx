@@ -14,6 +14,7 @@ function TopSidebar() {
       navigate("/login");
     }
   }, [isSuccess, navigate]);
+
   return (
     <section className="topbar">
       <div className="px-3 py-2 flex-between">

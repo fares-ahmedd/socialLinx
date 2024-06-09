@@ -37,7 +37,7 @@ const App = () => {
                   </ProtectedRoute>
                 }
               >
-                <Route element={<Home />} />
+                <Route index element={<Home />} />
                 <Route path="/explore" element={<Explore />} />
                 <Route path="/saved" element={<Saved />} />
                 <Route path="/all-users" element={<AllUsers />} />
