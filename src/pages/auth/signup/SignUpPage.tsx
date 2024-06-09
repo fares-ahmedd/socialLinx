@@ -14,13 +14,14 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { SignupValidation } from "@/lib/validation";
 import { z } from "zod";
-import LoadingSpinner from "../../ui/LoadingSpinner";
+import LoadingSpinner from "../../../ui/LoadingSpinner";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useCreateUserAccount,
   useSignInAccount,
 } from "@/lib/react-query/QueriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
+import PasswordInput from "@/ui/PasswordInput";
 function SignUpPage() {
   const { mutateAsync: createNewUserAccount, isPending: isCreating } =
     useCreateUserAccount();
@@ -144,12 +145,7 @@ function SignUpPage() {
             <FormItem>
               <FormLabel>Password:</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
-                  className="shad-input"
-                  {...field}
-                  disabled={isCreating}
-                />
+                <PasswordInput field={field} isLogging={isCreating} />
               </FormControl>
               <FormMessage />
             </FormItem>

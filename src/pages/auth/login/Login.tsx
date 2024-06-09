@@ -17,6 +17,8 @@ import LoadingSpinner from "../../../ui/LoadingSpinner";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignInAccount } from "@/lib/react-query/QueriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
+import LoginHeader from "./LoginHeader";
+import PasswordInput from "../../../ui/PasswordInput";
 
 function LoginPage() {
   const { mutateAsync: signInAccount, isPending: isLogging } =
@@ -57,16 +59,9 @@ function LoginPage() {
       return;
     }
   }
-
   return (
     <Form {...form}>
-      <div className="flex-col sm:w-[80%] flex-center mb-6 ">
-        <div className="flex items-center">
-          <img src={"/logo.png"} alt="Logo" className="w-[50px]" />
-          <span className="logo-text">SocialLinx</span>
-        </div>
-        <h2 className="text-white h3-bold md:h2-bold">Login To Your Account</h2>
-      </div>
+      <LoginHeader />
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex-col w-[70%] md:max-w-[400px]  max-w-[300px] gap-3 mt-4"
@@ -83,6 +78,8 @@ function LoginPage() {
                   className="shad-input"
                   {...field}
                   disabled={isLogging}
+                  // autoComplete="new-email"
+                  autoFocus
                 />
               </FormControl>
               <FormMessage />
@@ -96,12 +93,7 @@ function LoginPage() {
             <FormItem>
               <FormLabel>Password:</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
-                  className="shad-input"
-                  {...field}
-                  disabled={isLogging}
-                />
+                <PasswordInput field={field} isLogging={isLogging} />
               </FormControl>
               <FormMessage />
             </FormItem>
