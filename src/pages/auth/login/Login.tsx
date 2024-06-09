@@ -40,13 +40,13 @@ function LoginPage() {
     const session = await signInAccount(user);
 
     if (!session) {
-      toast({
-        title: "Sign in Failed. please try again.",
+      return toast({
+        title: "Login in Failed",
+        description:
+          "Please make sure you enter the email and password correctly",
       });
-      return;
     }
     const isLoggedIn = await checkAuthUser();
-    console.log(isLoggedIn);
 
     if (isLoggedIn) {
       form.reset();
@@ -55,7 +55,6 @@ function LoginPage() {
       toast({
         title: "Login Failed. please try again.",
       });
-      return;
     }
   }
   return (

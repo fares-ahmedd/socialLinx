@@ -49,7 +49,10 @@ export async function saveUserToDB(user: {
 
 export async function singInAccount(user: { email: string; password: string }) {
   try {
-    const session = await account.createEmailSession(user.email, user.password);
+    const session = await account.createEmailPasswordSession(
+      user.email,
+      user.password
+    );
     console.log(session);
 
     return session;
@@ -147,9 +150,7 @@ export function getFilePreview(fileId: string) {
       appwriteConfig.storageId,
       fileId,
       600,
-      600,
-      "top",
-      100
+      600
     );
 
     if (!fileUrl) throw Error;

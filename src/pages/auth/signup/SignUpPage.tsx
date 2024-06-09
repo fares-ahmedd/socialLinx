@@ -22,14 +22,16 @@ import {
 } from "@/lib/react-query/QueriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 import PasswordInput from "@/ui/PasswordInput";
+import SignupHeader from "./SignupHeader";
+import { useState } from "react";
 function SignUpPage() {
-  const { mutateAsync: createNewUserAccount, isPending: isCreating } =
-    useCreateUserAccount();
+  const [isCreating, setIsCreating] = useState(false);
+  const { mutateAsync: createNewUserAccount } = useCreateUserAccount();
   const { mutateAsync: signInAccount } = useSignInAccount();
   const { toast } = useToast();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { checkAuthUser } = useUserContext();
   const navigate = useNavigate();
-  // 1. Define your form.
+
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
     defaultValues: {
@@ -42,9 +44,12 @@ function SignUpPage() {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
+    setIsCreating(true);
     const newUser = await createNewUserAccount(values);
     if (!newUser) {
-      toast({
+      setIsCreating(false);
+
+      return toast({
         title: "Sign up Failed. please try again.",
       });
     }
@@ -52,19 +57,23 @@ function SignUpPage() {
       email: values.email,
       password: values.password,
     });
-    console.log(session);
 
     if (!session) {
-      toast({
+      setIsCreating(false);
+
+      return toast({
         title: "Sign in Failed. please try again.",
       });
-      return;
     }
     const isLoggedIn = await checkAuthUser();
     if (isLoggedIn) {
+      setIsCreating(false);
+
       form.reset();
       navigate("/");
     } else {
+      setIsCreating(false);
+
       return toast({
         title: "Sign up Failed. please try again.",
       });
@@ -73,13 +82,7 @@ function SignUpPage() {
 
   return (
     <Form {...form}>
-      <div className="flex-col sm:w-[80%] flex-center mb-6 ">
-        <div className="flex items-center">
-          <img src={"/logo.png"} alt="Logo" className="w-[50px]" />
-          <span className="logo-text">SocialLinx</span>
-        </div>
-        <h2 className="text-white h3-bold md:h2-bold">Create a new Account</h2>
-      </div>
+      <SignupHeader />
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex-col w-[70%] md:max-w-[400px]  max-w-[300px] gap-3 mt-4"
