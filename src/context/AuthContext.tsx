@@ -32,14 +32,17 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   useEffect(() => {
     setIsMounted(true);
+    console.log(isMounted);
+
     if (!isMounted) {
       if (
         localStorage.getItem("cookieFallback") === "[]" ||
         !localStorage.getItem("cookieFallback")
       ) {
         navigate("/login");
+      } else {
+        checkAuthUser();
       }
-      checkAuthUser();
     }
   }, [isMounted, navigate]);
 
@@ -67,6 +70,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       setIsLoading(false);
     }
   }
+
   const value = {
     user,
     setUser,

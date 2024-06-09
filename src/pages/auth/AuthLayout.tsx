@@ -1,14 +1,8 @@
 import { Outlet } from "react-router-dom";
 
 function AuthLayout() {
-  // const isAuth = false;
-
   return (
     <>
-      {/* {isAuth ? (
-        <Navigate to={"/"} />
-      ) : ( */}
-      {/* <> */}
       <section className="flex flex-col items-center justify-center flex-1 py-10">
         <Outlet />
       </section>
@@ -17,8 +11,6 @@ function AuthLayout() {
         alt="App Poster"
         className="hidden w-1/2 md:block "
       />
-      {/* </> */}
-      {/* )} */}
     </>
   );
 }

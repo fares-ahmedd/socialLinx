@@ -15,6 +15,7 @@ import EditPost from "./pages/home/editPost/EditPost";
 import Profile from "./pages/home/Profile";
 import UpdateProfile from "./pages/home/UpdateProfile";
 import PostsDetails from "./pages/home/postsDetails/PostsDetails";
+import ProtectedRoute from "./ui/ProtectedPage";
 
 const App = () => {
   return (
@@ -23,13 +24,20 @@ const App = () => {
         <AuthProvider>
           <main className=" flex h-screen ">
             <Routes>
-              <Route path="/" element={<AuthLayout />}>
+              <Route element={<AuthLayout />}>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignUpPage />} />
               </Route>
 
-              <Route element={<AppLayout />}>
-                <Route index element={<Home />} />
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route element={<Home />} />
                 <Route path="/explore" element={<Explore />} />
                 <Route path="/saved" element={<Saved />} />
                 <Route path="/all-users" element={<AllUsers />} />
