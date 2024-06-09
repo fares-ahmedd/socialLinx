@@ -15,7 +15,10 @@ import { Textarea } from "@/components/ui/textarea";
 import FileUploader from "./FileUploader";
 import { PostValidation } from "@/lib/validation";
 import { Models } from "appwrite";
-import { useCreatePost } from "@/lib/react-query/QueriesAndMutations";
+import {
+  useCreatePost,
+  useUpdatePost,
+} from "@/lib/react-query/QueriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +32,7 @@ type PostFormPorps = {
 function PostForm({ post, action }: PostFormPorps) {
   const { user } = useUserContext();
   const { mutateAsync: createPost, isPending: isLoading } = useCreatePost();
+  const { mutateAsync: updatePost, isPending: isUpdating } = useUpdatePost();
   const navigate = useNavigate();
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
@@ -41,6 +45,19 @@ function PostForm({ post, action }: PostFormPorps) {
   });
 
   async function onSubmit(values: z.infer<typeof PostValidation>) {
+    if (post && action === "update") {
+      const updatedPost = await updatePost({
+        ...values,
+        postId: post.$id,
+        imageId: post?.imageId,
+        imageUrl: post?.imageUrl,
+      });
+
+      if (!updatedPost) {
+        toast({ title: "Update failed, Please Try again!" });
+      }
+      return navigate(`/posts/${post.$id}`);
+    }
     const newPost = await createPost({
       ...values,
       userId: user.id,
@@ -72,7 +89,7 @@ function PostForm({ post, action }: PostFormPorps) {
                   className="shad-textarea custom-scrollbar"
                   placeholder="Post caption..."
                   {...field}
-                  disabled={isLoading}
+                  disabled={isLoading || isUpdating}
                 />
               </FormControl>
 
@@ -108,7 +125,7 @@ function PostForm({ post, action }: PostFormPorps) {
                   className="post-form"
                   placeholder="please enter your location"
                   {...field}
-                  disabled={isLoading}
+                  disabled={isLoading || isUpdating}
                 />
               </FormControl>
               <FormMessage />
@@ -127,7 +144,7 @@ function PostForm({ post, action }: PostFormPorps) {
                   className="post-form"
                   placeholder="Example: #Reactjs #web elc..."
                   {...field}
-                  disabled={isLoading}
+                  disabled={isLoading || isUpdating}
                 />
               </FormControl>
               <FormMessage />
@@ -138,18 +155,18 @@ function PostForm({ post, action }: PostFormPorps) {
           <Button
             type="button"
             className="shad-button_dark_4"
-            disabled={isLoading}
+            disabled={isLoading || isUpdating}
           >
             Cancel
           </Button>
           <Button
             type="submit"
             className="h-12 bg-primary-500 hover:bg-primary-300 md:w-[150px] flex-center gap-2 "
-            disabled={isLoading}
+            disabled={isLoading || isUpdating}
           >
-            {isLoading ? (
+            {isLoading || isUpdating ? (
               <>
-                <LoadingSpinner /> Creating...
+                <LoadingSpinner /> Confirm...
               </>
             ) : (
               "Confirm"

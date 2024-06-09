@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/auth/Login";
+import LoginPage from "./pages/auth/login/Login";
 import SignUpPage from "./pages/auth/SignUpPage";
 import Home from "./pages/home/index/Home";
 import AuthLayout from "./pages/auth/AuthLayout";
@@ -14,15 +14,16 @@ import CreatePost from "./pages/home/createpost/CreatePost";
 import EditPost from "./pages/home/editPost/EditPost";
 import Profile from "./pages/home/Profile";
 import UpdateProfile from "./pages/home/UpdateProfile";
+import PostsDetails from "./pages/home/postsDetails/PostsDetails";
 
 const App = () => {
   return (
     <BrowserRouter>
       <QueryProvider>
         <AuthProvider>
-          <main className="flex h-screen">
+          <main className=" flex h-screen ">
             <Routes>
-              <Route element={<AuthLayout />}>
+              <Route path="/" element={<AuthLayout />}>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignUpPage />} />
               </Route>
@@ -35,6 +36,7 @@ const App = () => {
                 <Route path="/create-post" element={<CreatePost />} />
                 <Route path="/update-post/:id" element={<EditPost />} />
                 <Route path="/profile/:id/*" element={<Profile />} />
+                <Route path="/posts/:id" element={<PostsDetails />} />
                 <Route path="/update-profile/:id" element={<UpdateProfile />} />
               </Route>
             </Routes>

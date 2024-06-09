@@ -8,7 +8,7 @@ import Tooltip from "@/ui/Tooltip";
 import { Models } from "appwrite";
 import { useEffect, useState } from "react";
 
-function SavePost({ post }: { post: Models.Document }) {
+function SavePost({ post }: { post: Models.Document | undefined }) {
   const [isSaved, setIsSaved] = useState(false);
   const { mutate: savePost } = useSavePost();
   const { data: currentUser, isLoading } = useGetCurrentUser();
@@ -16,7 +16,7 @@ function SavePost({ post }: { post: Models.Document }) {
     useDeleteSavedPost();
   const { user } = useUserContext();
   const savedPostRecord = currentUser?.save.find(
-    (record: Models.Document) => record.post.$id === post.$id
+    (record: Models.Document) => record.post.$id === post?.$id
   );
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function SavePost({ post }: { post: Models.Document }) {
       setIsSaved(false);
       return deleteSavedPost(savedPostRecord.$id);
     }
-    savePost({ postId: post.$id, userId: user.id });
+    savePost({ postId: post?.$id, userId: user.id });
     setIsSaved(true);
   }
 

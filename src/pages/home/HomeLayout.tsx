@@ -3,6 +3,8 @@ import LeftSidebar from "../../features/left-sidebar";
 import TopSidebar from "@/features/top-sidebar/TopSidebar";
 import BottomSidebar from "@/features/bottom-sidebar/BottomSidebar";
 function AppLayout() {
+  console.log("time ?");
+
   return (
     <main className="w-full md:flex">
       <TopSidebar />
