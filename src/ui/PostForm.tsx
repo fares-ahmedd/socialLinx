@@ -10,7 +10,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import FileUploader from "./FileUploader";
 import { PostValidation } from "@/lib/validation";
@@ -23,6 +22,7 @@ import { useUserContext } from "@/context/AuthContext";
 import { toast } from "@/components/ui/use-toast";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
+import { COUNTRIES, TAGS } from "@/utils/constants";
 
 type PostFormPorps = {
   post?: Models.Document;
@@ -123,13 +123,20 @@ function PostForm({ post, action }: PostFormPorps) {
             <FormItem>
               <FormLabel className="shad-form_label">Add Location</FormLabel>
               <FormControl>
-                <Input
-                  type="text"
-                  className="post-form"
-                  placeholder="please enter your location"
+                <select
                   {...field}
+                  className="w-full bg-dark-3 py-2 px-4 rounded-md"
                   disabled={isLoading || isUpdating}
-                />
+                >
+                  <option value="" disabled>
+                    Please Select your country
+                  </option>
+                  {COUNTRIES.map((value) => (
+                    <option value={value} key={value}>
+                      {value}
+                    </option>
+                  ))}
+                </select>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -140,15 +147,22 @@ function PostForm({ post, action }: PostFormPorps) {
           name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add Tags</FormLabel>
+              <FormLabel className="shad-form_label">Add Tag</FormLabel>
               <FormControl>
-                <Input
-                  type="text"
-                  className="post-form"
-                  placeholder="Example: #Reactjs #web elc..."
+                <select
                   {...field}
+                  className="w-full bg-dark-3 py-2 px-4 rounded-md"
                   disabled={isLoading || isUpdating}
-                />
+                >
+                  <option value="" disabled>
+                    Please Select a Tag
+                  </option>
+                  {TAGS.map((value) => (
+                    <option value={value.tag} key={value.tag}>
+                      {value.tag} {value.emoji}
+                    </option>
+                  ))}
+                </select>
               </FormControl>
               <FormMessage />
             </FormItem>

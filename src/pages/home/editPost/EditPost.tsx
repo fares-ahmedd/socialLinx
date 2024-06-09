@@ -8,7 +8,13 @@ function EditPost() {
   const { id } = useParams();
   const { data: post, isPending } = useGetPostById(id || "");
 
-  if (isPending) return <LoadingSpinner />;
+  if (isPending)
+    return (
+      <div className="flex-center h-screen w-full">
+        {" "}
+        <LoadingSpinner />
+      </div>
+    );
   return (
     <div className="flex flex-1 edit">
       <div className="common-container">
