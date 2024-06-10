@@ -7,7 +7,7 @@ function AppLayout() {
     <main className="w-full md:flex">
       <TopSidebar />
       <LeftSidebar />
-      <section className="flex flex-1 h-full">
+      <section className="flex flex-1 h-calc md:h-full">
         <Outlet />
       </section>
       {/* <RightSidebar /> */}

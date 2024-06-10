@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import LikePost from "./LikePost";
 
 function PostContent({ post }: { post: Models.Document }) {
-  console.log(post);
-
   const [isCollapse, setIsCollapse] = useState(true);
   const displayText = post.caption
     .split(" ")

@@ -13,7 +13,7 @@ const icons = [faHome, mdViewDay, faSave, biImageAdd];
 
 function BottomSidebar() {
   return (
-    <footer className="flex-wrap gap-1 bottom-bar">
+    <footer className=" gap-1 bottom-bar">
       {bottombarLinks.map((link, index) => (
         <NavLink
           to={link.route}

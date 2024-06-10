@@ -11,7 +11,7 @@ function PostCreatorInfo({ post }: { post: Models.Document }) {
 
   if (!post.creator) return;
   return (
-    <div className="flex-wrap-reverse flex-between">
+    <div className="flex-wrap-reverse gap-2 flex-between">
       <div className="flex items-center gap-3">
         <Link to={`/profile/${post.creator.$id}`}>
           <img
@@ -32,7 +32,7 @@ function PostCreatorInfo({ post }: { post: Models.Document }) {
           </div>
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 max-md:w-full max-md:justify-end">
         <Link
           to={`/update-post/${post.$id}`}
           className={`${user.id !== post.creator.$id && "hidden"}`}
