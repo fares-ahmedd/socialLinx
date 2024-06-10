@@ -1,6 +1,6 @@
 import Tooltip from "@/ui/Tooltip";
 import { multiFormatDateString } from "@/utils/helper";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import SavePost from "../index/SavePost";
 import { Models } from "appwrite";
@@ -13,7 +13,7 @@ interface Details {
 
 function DetailsInfo({ post, user }: Details) {
   return (
-    <div className="flex flex-wrap-reverse items-center justify-around w-full border-y py-4 border-y-stone-500 ">
+    <div className="flex flex-wrap-reverse items-center justify-around w-full border-y py-4 border-y-stone-500  gap-5">
       <div className="flex items-center gap-3">
         <Link to={`/profile/${post?.creator.$id}`}>
           <img
@@ -35,7 +35,7 @@ function DetailsInfo({ post, user }: Details) {
           </div>
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         <Link
           to={`/update-post/${post?.$id}`}
           className={`${user.id !== post?.creator.$id && "hidden"}`}
@@ -45,6 +45,11 @@ function DetailsInfo({ post, user }: Details) {
           </Tooltip>
         </Link>
         <SavePost post={post} />
+        <button className={`${user.id !== post?.creator.$id && "hidden"}`}>
+          <Tooltip content="Delete Post" position="top">
+            <FaTrash className="text-rose-800 text-3xl duration-300 hover:scale-90" />
+          </Tooltip>
+        </button>
       </div>
     </div>
   );

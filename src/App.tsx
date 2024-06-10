@@ -7,7 +7,7 @@ import AppLayout from "./pages/home/HomeLayout";
 import { Toaster } from "@/components/ui/toaster";
 import AuthProvider from "./context/AuthContext";
 import { QueryProvider } from "./lib/react-query/QueryProvider";
-import Explore from "./pages/home/Explore";
+import Explore from "./pages/home/explore/Explore";
 import Saved from "./pages/home/Saved";
 import AllUsers from "./pages/home/AllUsers";
 import CreatePost from "./pages/home/createpost/CreatePost";

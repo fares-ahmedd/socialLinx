@@ -13,9 +13,6 @@ function ProtectedPage({ children }: ProtectedPageProps) {
   useEffect(
     function () {
       if (!isAuth && !isLoading) {
-        localStorage.setItem("cookieFallback", JSON.stringify([]));
-        console.log("happen");
-
         navigate("/login");
       }
     },

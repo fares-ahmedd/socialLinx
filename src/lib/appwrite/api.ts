@@ -183,12 +183,15 @@ export async function getRecentPosts() {
   return posts;
 }
 
-export async function likePost(postId: string, likesArray: string[]) {
+export async function likePost(
+  postId: string | undefined,
+  likesArray: string[]
+) {
   try {
     const updatedPost = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
-      postId,
+      postId || "",
       {
         likes: likesArray,
       }
@@ -304,5 +307,41 @@ export async function deletePost(postId: string, imageId: string) {
     return { status: "ok" };
   } catch (error) {
     console.log();
+  }
+}
+
+export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
+  const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(10)];
+
+  if (pageParam) {
+    queries.push(Query.cursorAfter(pageParam.toString()));
+  }
+
+  try {
+    const posts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      queries
+    );
+    if (!posts) throw Error;
+
+    return posts;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function searchPosts(searchQuery: string) {
+  try {
+    const posts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      [Query.search("caption", searchQuery)]
+    );
+    if (!posts) throw Error;
+
+    return posts;
+  } catch (error) {
+    console.log(error);
   }
 }

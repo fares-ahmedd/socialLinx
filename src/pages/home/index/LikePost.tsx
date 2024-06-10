@@ -6,7 +6,9 @@ import { Models } from "appwrite";
 import { useState } from "react";
 
 function LikePost({ post }: { post: Models.Document }) {
-  const likesList = post.likes.map((userLike: Models.Document) => userLike.$id);
+  const likesList = post?.likes.map(
+    (userLike: Models.Document) => userLike.$id
+  );
 
   const [likes, setLikes] = useState(likesList);
   const { user } = useUserContext();
@@ -21,7 +23,7 @@ function LikePost({ post }: { post: Models.Document }) {
       newLikes.push(user.id);
     }
     setLikes(newLikes);
-    likePost({ postId: post.$id, likesArray: newLikes });
+    likePost({ postId: post?.$id, likesArray: newLikes });
   }
   return (
     <button onClick={handleLikePost}>
