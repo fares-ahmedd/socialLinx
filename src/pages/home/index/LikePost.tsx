@@ -7,6 +7,7 @@ import { useState } from "react";
 
 function LikePost({ post }: { post: Models.Document }) {
   const likesList = post.likes.map((userLike: Models.Document) => userLike.$id);
+
   const [likes, setLikes] = useState(likesList);
   const { user } = useUserContext();
   const { mutate: likePost } = useLikePost();

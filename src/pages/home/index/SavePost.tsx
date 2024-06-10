@@ -27,13 +27,14 @@ function SavePost({ post }: { post: Models.Document | undefined }) {
     setDelayClick(true);
     setTimeout(() => {
       setDelayClick(false);
-    }, 4000);
-    if (savedPostRecord) {
+    }, 2000);
+    if (isSaved) {
       setIsSaved(false);
-      return deleteSavedPost(savedPostRecord.$id);
+      deleteSavedPost(savedPostRecord.$id);
+    } else {
+      setIsSaved(true);
+      savePost({ postId: post?.$id, userId: user.id });
     }
-    setIsSaved(true);
-    savePost({ postId: post?.$id, userId: user.id });
   }
 
   return (

@@ -14,7 +14,6 @@ function PostContent({ post }: { post: Models.Document }) {
     setIsCollapse(false);
   }
   const wordsCount = post.caption.split(" ").length;
-  console.log(post);
 
   return (
     <>

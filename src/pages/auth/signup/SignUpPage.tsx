@@ -53,6 +53,7 @@ function SignUpPage() {
         title: "Sign up Failed. please try again.",
       });
     }
+
     const session = await signInAccount({
       email: values.email,
       password: values.password,
@@ -65,6 +66,7 @@ function SignUpPage() {
         title: "Sign in Failed. please try again.",
       });
     }
+
     const isLoggedIn = await checkAuthUser();
     if (isLoggedIn) {
       setIsCreating(false);

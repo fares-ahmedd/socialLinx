@@ -38,6 +38,7 @@ function LoginPage() {
   // 2. Define a submit handler.
   async function onSubmit(user: z.infer<typeof SigninValidation>) {
     const session = await signInAccount(user);
+    console.log(session);
 
     if (!session) {
       return toast({
