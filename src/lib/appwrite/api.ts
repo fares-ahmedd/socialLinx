@@ -338,6 +338,12 @@ export async function searchPosts(searchQuery: string) {
       appwriteConfig.postCollectionId,
       [Query.search("caption", searchQuery)]
     );
+    const post2 = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId
+    );
+    console.log(post2);
+
     if (!posts) throw Error;
 
     return posts;

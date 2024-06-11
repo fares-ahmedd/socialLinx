@@ -1,37 +1,74 @@
 import { Input } from "@/components/ui/input";
+import {
+  useGetPosts,
+  useSearchPosts,
+} from "@/lib/react-query/QueriesAndMutations";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import useDebounce from "./useDebounce";
+import GridPostList from "./GridPostList";
+import LoadingSpinner from "@/ui/LoadingSpinner";
 
 function Explore() {
   const [query, setQuery] = useState("");
+  // const debouncedQuery = useDebounce(query, 500);
+  // const { data: searchedPosts, isFetching: isSearchFetching } =
+  //   useSearchPosts(query);
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isPending: isLoading,
+  } = useGetPosts();
+  const posts = data?.pages[0];
 
-  const searchResults = query !== "";
-  // const isShowPosts =
-  //   !searchResults &&
-  //   PostsDetails.pages.every((item) => item.documents.length === 0);
+  const Creators = posts?.documents
+    .filter(
+      (person, index, arr) =>
+        arr.findIndex((obj) => obj.creator.name === person.creator.name) ===
+        index
+    )
+    .map((creator) => creator.creator.name);
+
+  if (isLoading)
+    return (
+      <div className="h-screen w-full flex-center">
+        {" "}
+        <LoadingSpinner />
+      </div>
+    );
+
   return (
     <div className="explore-container">
-      <div className="explore-inner_container">
-        <h2 className="h3-bold md:h2-bold w-full">Search Posts</h2>
-        <div className="flex gap-1 px-4 w-full rounded-lg bg-dark-4 relative">
-          <FaSearch className="w-[24px] h-[24px] absolute right-4 top-3" />
-          <Input
-            type="text"
-            placeholder="Search..."
-            className="explore-search font-bold"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </div>
+      <div className="explore-inner_container ">
+        <h2 className="h3-bold md:h2-bold w-full">Filter Users</h2>
+        <select
+          value={query}
+          className="w-full bg-dark-3 py-2 px-4 rounded-md"
+          onChange={(e) => setQuery(e.target.value)}
+        >
+          <option value="" disabled>
+            Filter Posts by users names
+          </option>
+          {Creators?.map((creator) => (
+            <option value={creator} key={creator}>
+              {creator}
+            </option>
+          ))}
+        </select>
       </div>
-      <div className="flex-between w-full max-w-5xl mt-16 mb-7">
+      <div className="flex-between w-full max-w-5xl mt-16 mb-7 flex-wrap gap-2">
         <h3 className="body-bold md:h3-bold text-gray-500">Popular Today</h3>
-        <span className="block mt-1">Results: X Post matched "rewrew"</span>
+        <span className="block mt-1">Total Posts: {posts?.total}</span>
       </div>
+
       <div className="flex flex-wrap gap-9 w-full max-w-5xl">
-        {posts.pages.map((item, index) => (
-          <GridPostList key={`page-${index}`} posts={item.documents} />
-        ))}
+        <ul className="grid-container">
+          {posts &&
+            posts.documents.map((post, index) => (
+              <GridPostList key={`page-${index}`} post={post} />
+            ))}
+        </ul>
       </div>
     </div>
   );
