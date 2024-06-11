@@ -1,3 +1,5 @@
+import { Models } from "appwrite";
+
 export const multiFormatDateString = (timestamp: string = ""): string => {
   const timestampNum = Math.round(new Date(timestamp).getTime() / 1000);
   const date: Date = new Date(timestampNum * 1000);
@@ -48,3 +50,20 @@ export function formatDateString(dateString: string) {
 export const checkIsLiked = (likeList: string[], userId: string) => {
   return likeList.includes(userId);
 };
+
+export function shuffleArray(array: Models.Document[] | undefined) {
+  // Create a copy of the array to avoid modifying the original
+  if (array === undefined) return;
+  const shuffledArray = [...array];
+
+  // Loop through the array from the end to the beginning
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    // Generate a random index between 0 and i (inclusive)
+    const j = Math.floor(Math.random() * (i + 1));
+
+    // Swap the elements at indices i and j
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+
+  return shuffledArray;
+}

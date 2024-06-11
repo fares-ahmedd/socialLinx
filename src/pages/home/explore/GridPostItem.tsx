@@ -1,4 +1,3 @@
-import { useUserContext } from "@/context/AuthContext";
 import { Models } from "appwrite";
 import { Link } from "react-router-dom";
 import SavePost from "../index/SavePost";
@@ -15,7 +14,6 @@ function GridPostItem({
   showUser = true,
   showStates = true,
 }: GridPostItemProps) {
-  const { user } = useUserContext();
   if (!post) return null;
   return (
     <li className="relative">
