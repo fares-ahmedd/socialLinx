@@ -207,7 +207,7 @@
 
   /* Grid Post List */
   .grid-container {
-    @apply w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-7 max-w-5xl;
+    @apply w-full grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-7;
   }
 
   .grid-post_link {
@@ -259,7 +259,7 @@
   }
 
   .shad-input {
-    @apply transition-all  duration-200	  h-8 m-0 bg-dark-4 border-none  focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-primary-300 !important;
+    @apply transition-all  duration-200	  h-8  bg-dark-4 border-none  focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-primary-300 !important;
   }
   .post-form {
     @apply h-8 m-0 bg-dark-3 border-none  focus-visible:ring-1 focus-visible:ring-offset-0  focus-visible:ring-white !important;
@@ -272,6 +272,9 @@
   /* Button */
   .shad-button_primary {
     @apply bg-primary-500 hover:bg-primary-300 text-light-1 uppercase  font-bold my-4 md:text-xl text-base tracking-widest w-full	  !important;
+  }
+  .prim-btn {
+    @apply mt-4 p-4 rounded-lg bg-primary-300 text-xl duration-300 hover:bg-orange-900 flex-center gap-2;
   }
 
   .shad-button_dark_4 {

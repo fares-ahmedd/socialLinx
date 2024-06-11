@@ -18,7 +18,7 @@ function GridPostItem({
   return (
     <li className="relative">
       <Link to={`/posts/${post.$id} `}>
-        <div className=" min-h-[300px] min-w-[300px]  block m-auto rounded-md bg-dark-4  ">
+        <div className=" min-h-[200px] min-w-[200px]  block m-auto rounded-md bg-dark-4  ">
           <h1 className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 animate-pulse">
             Loading image...
           </h1>

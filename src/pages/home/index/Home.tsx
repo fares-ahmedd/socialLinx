@@ -2,6 +2,7 @@ import { useGetRecentPosts } from "@/lib/react-query/QueriesAndMutations";
 import { Models } from "appwrite";
 import PostItem from "./PostItem";
 import PostSkeleton from "./PostSkeleton";
+import RightSidebar from "@/features/right-sidebar/RightSidebar";
 
 function Home() {
   const {
@@ -38,6 +39,7 @@ function Home() {
           )}
         </div>
       </div>
+      <RightSidebar />
     </main>
   );
 }

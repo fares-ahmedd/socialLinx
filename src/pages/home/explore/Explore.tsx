@@ -30,10 +30,10 @@ function Explore() {
     );
   }
   useEffect(() => {
-    if (scrollDownRef.current) {
+    if (scrollDownRef.current && postsAmount > 6) {
       scrollDownRef.current.scrollIntoView({ behavior: "instant" });
     }
-  }, [isLoading]);
+  }, [isLoading, postsAmount]);
   return (
     <div className="explore-container">
       {isLoading ? (
