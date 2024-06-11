@@ -4,17 +4,17 @@ import { Link } from "react-router-dom";
 import SavePost from "../index/SavePost";
 import LikePost from "../index/LikePost";
 
-type GridPostListProps = {
+type GridPostItemProps = {
   post: Models.Document | undefined;
   showUser?: boolean;
   showStates?: boolean;
 };
 
-function GridPostList({
+function GridPostItem({
   post,
   showUser = true,
   showStates = true,
-}: GridPostListProps) {
+}: GridPostItemProps) {
   const { user } = useUserContext();
   if (!post) return null;
   return (
@@ -56,4 +56,4 @@ function GridPostList({
   );
 }
 
-export default GridPostList;
+export default GridPostItem;

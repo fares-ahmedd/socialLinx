@@ -175,24 +175,9 @@ export const useDeletePost = () => {
   });
 };
 
-export function useGetPosts() {
-  return useInfiniteQuery({
-    queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
-    queryFn: getInfinitePosts,
-    getNextPageParam: (lastPage) => {
-      if (lastPage && lastPage.documents.length === 0) return null;
-
-      const lastId = lastPage?.documents[lastPage?.documents?.length - 1].$id;
-
-      return lastId;
-    },
+export function useGetPosts(postAmount: number) {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_INFINITE_POSTS, postAmount],
+    queryFn: () => getInfinitePosts(postAmount),
   });
 }
-
-export const useSearchPosts = (searchQuery: string) => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.SEARCH_POSTS, searchQuery],
-    queryFn: () => searchPosts(searchQuery),
-    enabled: !!searchQuery,
-  });
-};

@@ -1,75 +1,53 @@
-import { Input } from "@/components/ui/input";
-import {
-  useGetPosts,
-  useSearchPosts,
-} from "@/lib/react-query/QueriesAndMutations";
-import { useState } from "react";
-import { FaSearch } from "react-icons/fa";
-import useDebounce from "./useDebounce";
-import GridPostList from "./GridPostList";
+import { useGetPosts } from "@/lib/react-query/QueriesAndMutations";
+import { useEffect, useRef, useState } from "react";
+
+import GridPostItem from "./GridPostItem";
 import LoadingSpinner from "@/ui/LoadingSpinner";
+import FilterPosts from "./FilterPosts";
+import HeaderContainer from "./HeaderContainer";
 
 function Explore() {
   const [query, setQuery] = useState("");
-  // const debouncedQuery = useDebounce(query, 500);
-  // const { data: searchedPosts, isFetching: isSearchFetching } =
-  //   useSearchPosts(query);
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isPending: isLoading,
-  } = useGetPosts();
-  const posts = data?.pages[0];
+  const [postsAmount, setPostsAmount] = useState(6);
+  const scrollDownRef = useRef<HTMLDivElement>(null);
+  console.log(scrollDownRef.current);
 
-  const Creators = posts?.documents
-    .filter(
-      (person, index, arr) =>
-        arr.findIndex((obj) => obj.creator.name === person.creator.name) ===
-        index
-    )
-    .map((creator) => creator.creator.name);
+  const { data, isPending: isLoading } = useGetPosts(postsAmount);
+  const posts = data?.documents;
+  let filteredPosts = posts;
 
-  if (isLoading)
-    return (
-      <div className="h-screen w-full flex-center">
-        {" "}
-        <LoadingSpinner />
-      </div>
-    );
-
+  if (query) {
+    filteredPosts = posts?.filter((person) => person.creator.name === query);
+  }
+  useEffect(() => {
+    if (scrollDownRef.current) {
+      scrollDownRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [isLoading]);
   return (
     <div className="explore-container">
-      <div className="explore-inner_container ">
-        <h2 className="h3-bold md:h2-bold w-full">Filter Users</h2>
-        <select
-          value={query}
-          className="w-full bg-dark-3 py-2 px-4 rounded-md"
-          onChange={(e) => setQuery(e.target.value)}
-        >
-          <option value="" disabled>
-            Filter Posts by users names
-          </option>
-          {Creators?.map((creator) => (
-            <option value={creator} key={creator}>
-              {creator}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="flex-between w-full max-w-5xl mt-16 mb-7 flex-wrap gap-2">
-        <h3 className="body-bold md:h3-bold text-gray-500">Popular Today</h3>
-        <span className="block mt-1">Total Posts: {posts?.total}</span>
-      </div>
-
-      <div className="flex flex-wrap gap-9 w-full max-w-5xl">
-        <ul className="grid-container">
-          {posts &&
-            posts.documents.map((post, index) => (
-              <GridPostList key={`page-${index}`} post={post} />
-            ))}
-        </ul>
-      </div>
+      {isLoading ? (
+        <div className="flex-1 flex-center">
+          <LoadingSpinner />
+        </div>
+      ) : (
+        <>
+          {" "}
+          <FilterPosts setQuery={setQuery} query={query} posts={posts} />
+          <HeaderContainer totalPosts={filteredPosts?.length} />
+          {filteredPosts && (
+            <ul className="grid-container">
+              {filteredPosts.map((post, index) => (
+                <GridPostItem key={`page-${index}`} post={post} />
+              ))}
+            </ul>
+          )}
+          <button onClick={() => setPostsAmount((prev) => prev + 3)}>
+            load more posts
+          </button>
+        </>
+      )}
+      <span ref={scrollDownRef}></span>
     </div>
   );
 }
