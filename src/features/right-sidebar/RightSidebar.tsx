@@ -14,7 +14,6 @@ function RightSidebar({ isPage = false }: Props) {
   const filteredUsers = allUsers?.filter((user) =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  console.log("Right sidebar run");
 
   if (isLoading)
     return (

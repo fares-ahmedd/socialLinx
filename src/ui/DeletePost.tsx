@@ -12,8 +12,6 @@ type DeletePostProps = {
 function DeletePost({ user, post }: DeletePostProps) {
   const { mutateAsync: deletePost, isPending: isDeleting } = useDeletePost();
   const navigate = useNavigate();
-  console.log(deletePost);
-  console.log(isDeleting);
 
   function handleDelete() {
     const isConfirm = window.confirm(
