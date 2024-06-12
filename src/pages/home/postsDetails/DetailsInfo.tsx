@@ -1,10 +1,11 @@
 import Tooltip from "@/ui/Tooltip";
 import { multiFormatDateString } from "@/utils/helper";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import SavePost from "../index/SavePost";
 import { Models } from "appwrite";
 import { IUser } from "@/types";
+import DeletePost from "@/ui/DeletePost";
 
 interface Details {
   post: Models.Document | undefined;
@@ -45,11 +46,7 @@ function DetailsInfo({ post, user }: Details) {
           </Tooltip>
         </Link>
         <SavePost post={post} />
-        <button className={`${user.id !== post?.creator.$id && "hidden"}`}>
-          <Tooltip content="Delete Post" position="top">
-            <FaTrash className="text-rose-800 text-3xl duration-300 hover:scale-90" />
-          </Tooltip>
-        </button>
+        <DeletePost post={post} user={user} />
       </div>
     </div>
   );

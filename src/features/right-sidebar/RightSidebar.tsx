@@ -3,8 +3,10 @@ import LoadingSpinner from "@/ui/LoadingSpinner";
 import UserItem from "./UserItem";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-
-function RightSidebar() {
+type Props = {
+  isPage: boolean;
+};
+function RightSidebar({ isPage = false }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
   const { data, isLoading, isError: isErrorCreators } = useGetUsers();
   const allUsers = data?.documents;
@@ -16,12 +18,18 @@ function RightSidebar() {
 
   if (isLoading)
     return (
-      <div className="h-screen w-full max-w-52 flex-center">
+      <div
+        className={`h-screen w-full ${!isPage ? "max-w-52" : ""} flex-center`}
+      >
         <LoadingSpinner />
       </div>
     );
   return (
-    <div className="overflow-auto px-6 custom-scrollbar max-lg:hidden">
+    <div
+      className={`overflow-auto px-6 custom-scrollbar ${
+        !isPage ? "max-lg:hidden" : ""
+      }  ${isPage ? "w-full" : ""}`}
+    >
       <h3 className="my-4 text-center text-3xl">Users</h3>
       <Input
         className="shad-input my-3 block  font-bold"
@@ -31,7 +39,11 @@ function RightSidebar() {
       />
       {isErrorCreators && <span>Something went wrong !</span>}
       {filteredUsers && (
-        <ul className="space-y-4">
+        <ul
+          className={`${!isPage ? "space-y-4" : ""} ${
+            isPage ? "gridLayout" : ""
+          }`}
+        >
           {filteredUsers.map((user) => (
             <UserItem user={user} key={user.$id} />
           ))}

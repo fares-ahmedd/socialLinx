@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply bg-dark-1 text-light-2 min-h-screen font-inter overflow-hidden;
+    @apply bg-dark-1 text-light-2 min-h-screen font-inter overflow-hidden relative;
   }
 }
 
@@ -313,4 +313,10 @@ ol li {
 
 select {
   font-size: 22px;
+}
+
+.gridLayout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
 }

@@ -18,6 +18,7 @@ import {
 import { INewPost, INewUser, IUpdatePost } from "@/types";
 import { QUERY_KEYS } from "./queryKeys";
 import { useMemo } from "react";
+import { toast } from "@/components/ui/use-toast";
 
 export const useCreateUserAccount = () => {
   return useMutation({
@@ -43,6 +44,9 @@ export const useCreatePost = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+      });
+      toast({
+        title: "Post Deleted Successfully",
       });
     },
   });
@@ -160,8 +164,7 @@ export const useUpdatePost = () => {
 export const useDeletePost = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ postId, imageId }: { postId: string; imageId: string }) =>
-      deletePost(postId, imageId),
+    mutationFn: (postId: string | undefined) => deletePost(postId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_RECENT_POSTS],

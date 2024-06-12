@@ -39,7 +39,7 @@ function Home() {
           )}
         </div>
       </div>
-      <RightSidebar />
+      <RightSidebar isPage={false} />
     </main>
   );
 }

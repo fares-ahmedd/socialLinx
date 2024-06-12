@@ -5,6 +5,7 @@ import { FaEdit } from "react-icons/fa";
 import { useUserContext } from "@/context/AuthContext";
 import Tooltip from "@/ui/Tooltip";
 import SavePost from "./SavePost";
+import DeletePost from "@/ui/DeletePost";
 
 function PostCreatorInfo({ post }: { post: Models.Document }) {
   const { user } = useUserContext();
@@ -42,6 +43,8 @@ function PostCreatorInfo({ post }: { post: Models.Document }) {
           </Tooltip>
         </Link>
         <SavePost post={post} />
+
+        <DeletePost post={post} user={user} />
       </div>
     </div>
   );

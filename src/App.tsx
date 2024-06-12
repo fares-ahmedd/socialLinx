@@ -9,7 +9,7 @@ import AuthProvider from "./context/AuthContext";
 import { QueryProvider } from "./lib/react-query/QueryProvider";
 import Explore from "./pages/home/explore/Explore";
 import Saved from "./pages/home/Saved";
-import AllUsers from "./pages/home/AllUsers";
+import AllUsers from "./pages/home/allUsers/AllUsers";
 import CreatePost from "./pages/home/createpost/CreatePost";
 import EditPost from "./pages/home/editPost/EditPost";
 import Profile from "./pages/home/Profile";
