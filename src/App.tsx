@@ -13,7 +13,7 @@ import AllUsers from "./pages/home/allUsers/AllUsers";
 import CreatePost from "./pages/home/createpost/CreatePost";
 import EditPost from "./pages/home/editPost/EditPost";
 import Profile from "./pages/home/profile/Profile";
-import UpdateProfile from "./pages/home/UpdateProfile";
+import UpdateProfile from "./pages/home/updateProfile/UpdateProfile";
 import PostsDetails from "./pages/home/postsDetails/PostsDetails";
 import ProtectedRoute from "./ui/ProtectedPage";
 

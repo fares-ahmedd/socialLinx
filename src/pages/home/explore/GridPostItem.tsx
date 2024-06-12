@@ -5,15 +5,9 @@ import LikePost from "../index/LikePost";
 
 type GridPostItemProps = {
   post: Models.Document | undefined;
-  showUser?: boolean;
-  showStates?: boolean;
 };
 
-function GridPostItem({
-  post,
-  showUser = true,
-  showStates = true,
-}: GridPostItemProps) {
+function GridPostItem({ post }: GridPostItemProps) {
   if (!post) return null;
   return (
     <li className="relative">
@@ -29,16 +23,15 @@ function GridPostItem({
           />
         </div>
       </Link>
-      {showStates && (
-        <div className="absolute top-4 right-2">
-          <SavePost post={post} />
-        </div>
-      )}
-      {showStates && (
-        <div className="absolute right-2 bottom-2">
-          <LikePost post={post} />
-        </div>
-      )}
+
+      <div className="absolute top-4 right-2">
+        <SavePost post={post} />
+      </div>
+
+      <div className="absolute right-2 bottom-2">
+        <LikePost post={post} />
+      </div>
+
       <div className="absolute bottom-3 left-3 flex-center gap-3">
         <img
           src={post.creator.imageUrl}

@@ -16,10 +16,10 @@ function EditPost() {
       </div>
     );
   return (
-    <div className="flex flex-1 edit">
+    <div className="flex flex-1 ">
       <div className="common-container">
         <div className="w-full max-w-5xl gap-3 flex-start">
-          <FaEdit className="text-3xl" />
+          <FaEdit className="text-5xl" />
           <h2 className="w-full text-left h3-bold md:h2-bold">Edit Post</h2>
         </div>
         <PostForm action="update" post={post} />

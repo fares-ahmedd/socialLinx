@@ -54,6 +54,7 @@ function Profile() {
                 post={post}
                 userImage={currentUser.imageUrl}
                 username={currentUser.name}
+                key={post.$id}
               />
             ))}
           </ul>

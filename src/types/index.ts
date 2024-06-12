@@ -15,7 +15,7 @@ export type INavLink = {
 };
 
 export type IUpdateUser = {
-  userId: string;
+  userId: string | undefined;
   name: string;
   bio: string;
   imageId: string;
