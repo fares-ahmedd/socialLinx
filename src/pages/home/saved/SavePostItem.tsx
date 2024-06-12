@@ -7,10 +7,18 @@ type Props = {
 };
 
 function SavePostItem({ post, profile = false }: Props) {
+  if (!post) return;
   return (
     <li key={post.$id} className="relative">
       <Link to={`/posts/${post.$id}`}>
-        <img src={profile ? post.post.imageUrl : post.imageUrl} alt="PostImg" />
+        <img
+          src={
+            profile
+              ? post?.post?.imageUrl || "/no-post-image.jpg"
+              : post.imageUrl || "/no-post-image.jpg"
+          }
+          alt="PostImg"
+        />
       </Link>
       <div className="flex-center gap-4 absolute bottom-2 left-2">
         {!profile && (

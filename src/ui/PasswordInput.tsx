@@ -27,7 +27,7 @@ function PasswordInput({ field, isLogging = false }: Props) {
         {...field}
         disabled={isLogging}
         ref={passwordEl}
-        // autoComplete="new-password"
+        autoComplete="new-password"
       />
       <button
         className="absolute right-3 bottom-2 z-50 text-white"

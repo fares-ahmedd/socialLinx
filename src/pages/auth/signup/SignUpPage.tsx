@@ -42,7 +42,6 @@ function SignUpPage() {
     },
   });
 
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
     setIsCreating(true);
     const newUser = await createNewUserAccount(values);

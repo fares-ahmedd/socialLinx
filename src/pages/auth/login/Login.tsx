@@ -77,7 +77,7 @@ function LoginPage() {
                   className="shad-input"
                   {...field}
                   disabled={isLogging}
-                  // autoComplete="new-email"
+                  autoComplete="new-email"
                   autoFocus
                 />
               </FormControl>
