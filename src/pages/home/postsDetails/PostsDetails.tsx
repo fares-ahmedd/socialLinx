@@ -28,8 +28,8 @@ function PostsDetails() {
         </Link>
       </div>
       <div className="p-5 post_details-card">
-        <DetailsImg post={post} />
         <DetailsInfo post={post} user={user} />
+        <DetailsImg post={post} />
         <PostContent post={post} />
         {post && <LikePost post={post} />}
       </div>

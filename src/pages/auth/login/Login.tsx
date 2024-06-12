@@ -15,18 +15,23 @@ import { SigninValidation } from "@/lib/validation";
 import { z } from "zod";
 import LoadingSpinner from "../../../ui/LoadingSpinner";
 import { Link, useNavigate } from "react-router-dom";
-import { useSignInAccount } from "@/lib/react-query/QueriesAndMutations";
+import {
+  useSignInAccount,
+  useSignOutAccount,
+} from "@/lib/react-query/QueriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 import LoginHeader from "./LoginHeader";
 import PasswordInput from "../../../ui/PasswordInput";
+import { useEffect } from "react";
 
 function LoginPage() {
   const { mutateAsync: signInAccount, isPending: isLogging } =
     useSignInAccount();
   const { toast } = useToast();
   const { checkAuthUser } = useUserContext();
+  const { mutate: signOut } = useSignOutAccount();
   const navigate = useNavigate();
-  // 1. Define your form.
+
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
     defaultValues: {
@@ -35,8 +40,8 @@ function LoginPage() {
     },
   });
 
-  // 2. Define a submit handler.
   async function onSubmit(user: z.infer<typeof SigninValidation>) {
+    signOut();
     const session = await signInAccount(user);
 
     if (!session) {
@@ -57,6 +62,13 @@ function LoginPage() {
       });
     }
   }
+
+  useEffect(() => {
+    const hasToken = JSON.parse(localStorage.getItem("cookieFallback") || "");
+    if (hasToken?.length === 0 || !hasToken) {
+      signOut();
+    }
+  }, [signOut]);
   return (
     <Form {...form}>
       <LoginHeader />

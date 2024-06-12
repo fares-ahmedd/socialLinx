@@ -14,7 +14,7 @@ interface Details {
 
 function DetailsInfo({ post, user }: Details) {
   return (
-    <div className="flex flex-wrap-reverse items-center justify-around w-full border-y py-4 border-y-stone-500  gap-5">
+    <div className="flex flex-wrap-reverse items-center justify-around w-full border-y py-4 border-y-stone-500  gap-5 mb-4">
       <div className="flex items-center gap-3">
         <Link to={`/profile/${post?.creator.$id}`}>
           <img
