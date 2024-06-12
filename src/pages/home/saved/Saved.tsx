@@ -25,7 +25,7 @@ function Saved() {
 
   return (
     <div className="p-6">
-      <div className="flex-center gap-4">
+      <div className="flex-center gap-4 pb-4 border-b ">
         <img src="/save-sold.png" alt="Save Post" className="w-14 h-14" />
 
         <h1 className="text-3xl">Saved Posts </h1>
