@@ -403,7 +403,7 @@ export async function updateUser(user: IUpdateUser) {
     const updatedUser = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
-      user.userId,
+      user.userId || "",
       {
         name: user.name,
         bio: user.bio,

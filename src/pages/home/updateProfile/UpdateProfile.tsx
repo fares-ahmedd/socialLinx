@@ -184,7 +184,7 @@ function UpdateProfile() {
               </Button>
               <Button
                 type="submit"
-                className="shad-button_primary whitespace-nowrap"
+                className="bg-primary-500 h-full duration-300 hover:bg-primary-300"
                 disabled={isLoadingUpdate}
               >
                 {isLoadingUpdate && <LoadingSpinner />}

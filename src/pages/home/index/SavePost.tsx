@@ -17,7 +17,7 @@ function SavePost({ post }: { post: Models.Document | undefined }) {
   const { mutate: deleteSavedPost } = useDeleteSavedPost();
   const { user } = useUserContext();
   const savedPostRecord = currentUser?.save.find(
-    (record: Models.Document) => record.post.$id === post?.$id
+    (record: Models.Document) => record?.post?.$id === post?.$id
   );
 
   useEffect(() => {

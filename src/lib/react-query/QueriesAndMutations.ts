@@ -47,9 +47,6 @@ export const useCreatePost = () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
       });
-      toast({
-        title: "Post Deleted Successfully",
-      });
     },
   });
 };
@@ -208,6 +205,7 @@ export const useUpdateUser = () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_USER_BY_ID, data?.$id],
       });
+      toast({ title: "Upload profile success ✅" });
     },
   });
 };

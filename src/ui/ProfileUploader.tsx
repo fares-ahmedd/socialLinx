@@ -36,9 +36,7 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
           alt="profile Img"
           className="h-24 w-24 rounded-full object-cover object-top"
         />
-        <p className="text-primary-500 small-regular md:bbase-semibold">
-          Change profile photo
-        </p>
+        <p className="text-gray-300">Change profile photo</p>
       </div>
     </div>
   );
