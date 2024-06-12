@@ -1,7 +1,9 @@
+import { memo } from "react";
+
 type Props = {
   postAmount?: number;
 };
-function ProfileStatus({ postAmount }: Props) {
+const ProfileStatus = memo(function ProfileStatus({ postAmount }: Props) {
   const randomFollowers = Math.ceil(Math.random() * 20);
   const randomFollowing = Math.ceil(Math.random() * 20);
 
@@ -27,6 +29,6 @@ function ProfileStatus({ postAmount }: Props) {
       </p>
     </div>
   );
-}
+});
 
 export default ProfileStatus;

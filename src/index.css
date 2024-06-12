@@ -263,6 +263,9 @@
   .prim-btn {
     @apply mt-4 p-4 rounded-lg bg-primary-300 text-xl duration-300 hover:bg-orange-900 flex-center gap-2;
   }
+  .link-btn {
+    @apply mt-4 p-4  bg-gray-900 text-slate-100 text-xl duration-300  flex-center gap-2 hover:bg-sky-800 hover:underline;
+  }
 
   .shad-button_dark_4 {
     @apply h-12 bg-dark-4 px-5 text-light-1   flex gap-2 !important;

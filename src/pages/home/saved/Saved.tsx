@@ -1,7 +1,7 @@
 import { useGetCurrentUser } from "@/lib/react-query/QueriesAndMutations";
 import LoadingSpinner from "@/ui/LoadingSpinner";
 import { Models } from "appwrite";
-import { Link } from "react-router-dom";
+import SavePostItem from "./SavePostItem";
 
 function Saved() {
   const { data: currentUser, isLoading } = useGetCurrentUser();
@@ -14,7 +14,6 @@ function Saved() {
       },
     }))
     .reverse();
-  console.log(savePosts);
 
   if (isLoading)
     return (
@@ -38,21 +37,7 @@ function Saved() {
         <ul className="gridLayout p-6">
           {savePosts &&
             savePosts.map((post: any) => (
-              <li key={post.$id} className="relative">
-                <Link to={`/posts/${post.$id}`}>
-                  <img src={post.imageUrl} alt="PostImg" />
-                </Link>
-                <div className="flex-center gap-4 absolute bottom-2 left-2">
-                  <img
-                    src={post.creator.imageUrl}
-                    alt="creatorImg"
-                    className="w-10 h-10 rounded-full"
-                  />
-                  <p className="bg-black/80  p-2 rounded-lg">
-                    {post.creator.name}
-                  </p>
-                </div>
-              </li>
+              <SavePostItem post={post} profile={false} />
             ))}
         </ul>
       )}
