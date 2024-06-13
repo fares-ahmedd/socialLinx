@@ -64,8 +64,21 @@ function LoginPage() {
   }
 
   useEffect(() => {
-    const hasToken = JSON.parse(localStorage.getItem("cookieFallback") || "");
-    if (hasToken?.length === 0 || !hasToken) {
+    const cookieFallback = localStorage.getItem("cookieFallback");
+    let hasToken;
+
+    if (cookieFallback) {
+      try {
+        hasToken = JSON.parse(cookieFallback);
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+        hasToken = null;
+      }
+    } else {
+      hasToken = null;
+    }
+
+    if (!hasToken || hasToken.length === 0) {
       signOut();
     }
   }, [signOut]);
