@@ -23,9 +23,15 @@ function Saved() {
     );
 
   return (
-    <div className="p-6">
-      <div className="flex-center gap-4 pb-4 border-b ">
-        <img src="/save-sold.png" alt="Save Post" className="w-14 h-14" />
+    <section className="p-6 w-full">
+      <div className="flex items-center gap-4 pb-4 border-b ">
+        <div className="w-14 h-14">
+          <img
+            src="/save-sold.png"
+            alt="Save Post"
+            className="w-full h-full object-cover"
+          />
+        </div>
 
         <h1 className="text-3xl">Saved Posts </h1>
       </div>
@@ -34,14 +40,14 @@ function Saved() {
           No posts have been added to your saved collection yet 🖨️
         </h5>
       ) : (
-        <ul className="gridLayout p-6">
+        <ul className="grid-container mt-3  ">
           {savePosts &&
             savePosts.map((post: any) => (
               <SavePostItem post={post} profile={false} />
             ))}
         </ul>
       )}
-    </div>
+    </section>
   );
 }
 

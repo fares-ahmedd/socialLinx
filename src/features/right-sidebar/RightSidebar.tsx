@@ -3,28 +3,36 @@ import LoadingSpinner from "@/ui/LoadingSpinner";
 import UserItem from "./UserItem";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { useUserContext } from "@/context/AuthContext";
+import { shuffleArray } from "@/utils/helper";
 type Props = {
-  isPage: boolean;
+  isPage?: boolean;
 };
 function RightSidebar({ isPage = false }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
+  const { user } = useUserContext();
   const { data, isLoading, isError: isErrorCreators } = useGetUsers();
-  const allUsers = data?.documents;
 
-  const filteredUsers = allUsers?.filter((user) =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const allUsers = shuffleArray(data?.documents);
+
+  const filterCurrentUser = allUsers?.filter((usr) => usr.$id !== user.id);
+
+  const filteredUsers = filterCurrentUser?.filter((usr) =>
+    usr.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   if (isLoading)
     return (
       <div
-        className={`h-screen w-full ${!isPage ? "max-w-52" : ""} flex-center`}
+        className={`h-screen w-full ${
+          !isPage ? "max-w-52" : ""
+        } flex-center max-lg:hidden `}
       >
         <LoadingSpinner />
       </div>
     );
   return (
-    <div
+    <aside
       className={`overflow-auto px-6 custom-scrollbar ${
         !isPage ? "max-lg:hidden" : ""
       }  ${isPage ? "w-full" : ""}`}
@@ -49,7 +57,7 @@ function RightSidebar({ isPage = false }: Props) {
         </ul>
       )}
       {filteredUsers?.length === 0 && <p>No Users Matched: "{searchQuery}"</p>}
-    </div>
+    </aside>
   );
 }
 

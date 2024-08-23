@@ -92,12 +92,13 @@ function SignUpPage() {
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="animate-fade-left">
               <FormLabel>Name:</FormLabel>
               <FormControl>
                 <Input
                   type="text"
                   className="shad-input"
+                  autoFocus
                   {...field}
                   disabled={isCreating}
                 />
@@ -110,7 +111,7 @@ function SignUpPage() {
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="animate-fade-left">
               <FormLabel>Username:</FormLabel>
               <FormControl>
                 <Input
@@ -128,7 +129,7 @@ function SignUpPage() {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="animate-fade-left">
               <FormLabel>Email:</FormLabel>
               <FormControl>
                 <Input
@@ -146,7 +147,7 @@ function SignUpPage() {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="animate-fade-left">
               <FormLabel>Password:</FormLabel>
               <FormControl>
                 <PasswordInput field={field} isLogging={isCreating} />
@@ -158,7 +159,7 @@ function SignUpPage() {
 
         <Button
           type="submit"
-          className="shad-button_primary"
+          className="shad-button_primary animate-fade-down"
           disabled={isCreating}
         >
           {isCreating ? (
@@ -169,7 +170,7 @@ function SignUpPage() {
             "Signup"
           )}
         </Button>
-        <p className="mt-2 text-center text-small-regular text-light-2">
+        <p className="mt-2 text-center text-small-regular text-light-2 animate-fade-down ">
           Already have an account?{" "}
           <Link
             to={"/login"}

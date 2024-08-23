@@ -27,8 +27,9 @@ import { useEffect } from "react";
 function LoginPage() {
   const { mutateAsync: signInAccount, isPending: isLogging } =
     useSignInAccount();
+  const { isAuth } = useUserContext();
   const { toast } = useToast();
-  const { checkAuthUser } = useUserContext();
+  const { checkAuthUser, isLoading } = useUserContext();
   const { mutate: signOut } = useSignOutAccount();
   const navigate = useNavigate();
 
@@ -64,24 +65,10 @@ function LoginPage() {
   }
 
   useEffect(() => {
-    const cookieFallback = localStorage.getItem("cookieFallback");
-    let hasToken;
-
-    if (cookieFallback) {
-      try {
-        hasToken = JSON.parse(cookieFallback);
-      } catch (error) {
-        console.error("Error parsing JSON:", error);
-        hasToken = null;
-      }
-    } else {
-      hasToken = null;
+    if (isAuth) {
+      navigate("/");
     }
-
-    if (!hasToken || hasToken.length === 0) {
-      signOut();
-    }
-  }, [signOut]);
+  }, [isAuth, navigate]);
   return (
     <Form {...form}>
       <LoginHeader />
@@ -93,14 +80,14 @@ function LoginPage() {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="animate-fade-left">
               <FormLabel>Email:</FormLabel>
               <FormControl>
                 <Input
                   type="email"
                   className="shad-input"
                   {...field}
-                  disabled={isLogging}
+                  disabled={isLogging || isLoading}
                   autoComplete="new-email"
                   autoFocus
                 />
@@ -112,11 +99,16 @@ function LoginPage() {
         <FormField
           control={form.control}
           name="password"
+          disabled={isLoading || isLogging}
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="animate-fade-left">
               <FormLabel>Password:</FormLabel>
               <FormControl>
-                <PasswordInput field={field} isLogging={isLogging} />
+                <PasswordInput
+                  field={field}
+                  isLogging={isLogging}
+                  isLoading={isLoading}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -125,10 +117,10 @@ function LoginPage() {
 
         <Button
           type="submit"
-          className="shad-button_primary"
-          disabled={isLogging}
+          className="shad-button_primary animate-fade-left"
+          disabled={isLogging || isLoading}
         >
-          {isLogging ? (
+          {isLogging || isLoading ? (
             <>
               <LoadingSpinner /> &nbsp; Loading...
             </>
@@ -136,16 +128,16 @@ function LoginPage() {
             "Login"
           )}
         </Button>
-        <p className="mt-2 text-center text-small-regular text-light-2">
-          don't have an Account?{" "}
-          <Link
-            to={"/signup"}
-            className="text-lg font-bold text-primary-500 hover:text-primary-300 hover:underline"
-          >
-            Register
-          </Link>
-        </p>
       </form>
+      <p className="mt-2 text-center text-small-regular text-light-2 animate-fade-up">
+        don't have an Account?{" "}
+        <Link
+          to={"/signup"}
+          className="text-lg font-bold text-primary-500 hover:text-primary-300 hover:underline"
+        >
+          Register
+        </Link>
+      </p>
     </Form>
   );
 }

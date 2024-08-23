@@ -1,6 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/auth/login/Login";
-import SignUpPage from "./pages/auth/signup/SignUpPage";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import LoginPage from "./pages/auth/login/Index";
+import SignUpPage from "./pages/auth/signup/Index";
 import Home from "./pages/home/index/Home";
 import AuthLayout from "./pages/auth/AuthLayout";
 import AppLayout from "./pages/home/HomeLayout";
@@ -22,7 +22,7 @@ const App = () => {
     <BrowserRouter>
       <QueryProvider>
         <AuthProvider>
-          <main className=" flex h-screen ">
+          <main className="flex h-screen">
             <Routes>
               <Route element={<AuthLayout />}>
                 <Route path="/login" element={<LoginPage />} />
@@ -47,6 +47,7 @@ const App = () => {
                 <Route path="/posts/:id" element={<PostsDetails />} />
                 <Route path="/update-profile/:id" element={<UpdateProfile />} />
               </Route>
+              <Route path="*" element={<Navigate to={"/"} replace />} />
             </Routes>
             <Toaster />
           </main>

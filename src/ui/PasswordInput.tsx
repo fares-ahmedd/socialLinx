@@ -4,9 +4,10 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 type Props = {
   field: {};
-  isLogging: boolean;
+  isLogging?: boolean;
+  isLoading?: boolean;
 };
-function PasswordInput({ field, isLogging = false }: Props) {
+function PasswordInput({ field, isLogging = false, isLoading = false }: Props) {
   const [isShownPassword, setIsShownPassword] = useState(false);
   const passwordEl = useRef<HTMLInputElement | null>(null);
 
@@ -25,7 +26,7 @@ function PasswordInput({ field, isLogging = false }: Props) {
         type="password"
         className="shad-input "
         {...field}
-        disabled={isLogging}
+        disabled={isLogging || isLoading}
         ref={passwordEl}
         autoComplete="new-password"
       />

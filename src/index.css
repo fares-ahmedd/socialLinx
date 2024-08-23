@@ -194,7 +194,7 @@
 
   /* Grid Post List */
   .grid-container {
-    @apply w-full grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-7;
+    @apply w-full grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3  gap-7;
   }
 
   .grid-post_link {
@@ -246,7 +246,7 @@
   }
 
   .shad-input {
-    @apply transition-all  duration-200	  h-8  bg-dark-4 border-none  focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-primary-300 !important;
+    @apply transition-all  duration-200	  h-8  bg-dark-4 border-none  disabled:bg-slate-700 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-primary-300 !important;
   }
   .post-form {
     @apply h-8 m-0 bg-dark-3 border-none  focus-visible:ring-1 focus-visible:ring-offset-0  focus-visible:ring-white !important;

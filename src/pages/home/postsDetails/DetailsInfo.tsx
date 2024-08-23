@@ -46,7 +46,7 @@ function DetailsInfo({ post, user }: Details) {
           </Tooltip>
         </Link>
         <SavePost post={post} />
-        <DeletePost post={post} user={user} />
+        <DeletePost post={post} user={user} isDetails />
       </div>
     </div>
   );

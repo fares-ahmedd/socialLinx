@@ -17,6 +17,7 @@ function SavePostItem({ post, profile = false }: Props) {
               ? post?.post?.imageUrl || "/no-post-image.jpg"
               : post.imageUrl || "/no-post-image.jpg"
           }
+          className="rounded-sm"
           alt="PostImg"
         />
       </Link>

@@ -4,16 +4,23 @@ import { useSignOutAccount } from "@/lib/react-query/QueriesAndMutations";
 import { useEffect } from "react";
 import { useUserContext } from "@/context/AuthContext";
 import Logo from "@/ui/Logo";
+import LoadingSpinner from "@/ui/LoadingSpinner";
 
 function TopSidebar() {
-  const { mutate: signOut, isSuccess } = useSignOutAccount();
-  const { user } = useUserContext();
+  const {
+    mutate: signOut,
+    isSuccess,
+    isPending: isLoading,
+  } = useSignOutAccount();
+  const { user, setIsAuth } = useUserContext();
   const navigate = useNavigate();
   useEffect(() => {
     if (isSuccess) {
+      setIsAuth(false);
+
       navigate("/login");
     }
-  }, [isSuccess, navigate]);
+  }, [isSuccess, navigate, setIsAuth]);
 
   return (
     <section className="topbar">
@@ -25,10 +32,16 @@ function TopSidebar() {
             <img
               src={user.imageUrl || "/unknown.png"}
               alt="profile"
-              className="w-8 h-8 rounded-full"
+              className="w-10 h-10 rounded-full"
             />
           </Link>
-          <CiLogout className="icon-button" onClick={() => signOut()} />
+          <button
+            onClick={() => signOut()}
+            className="icon-button disabled:bg-stone-600 disabled:border-none disabled:cursor-wait disabled:p-2 "
+            disabled={isLoading}
+          >
+            {isLoading ? <LoadingSpinner /> : <CiLogout />}
+          </button>
         </div>
       </div>
     </section>

@@ -28,7 +28,7 @@ function LikePost({ post }: { post: Models.Document }) {
   return (
     <button onClick={handleLikePost}>
       <Tooltip
-        content="Love"
+        content="like"
         position="top"
         className="flex items-center gap-2 mt-4 w-fit"
       >

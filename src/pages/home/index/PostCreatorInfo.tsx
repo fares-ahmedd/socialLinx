@@ -38,7 +38,7 @@ function PostCreatorInfo({ post }: { post: Models.Document }) {
           to={`/update-post/${post.$id}`}
           className={`${user.id !== post.creator.$id && "hidden"}`}
         >
-          <Tooltip content="edit post" position="top">
+          <Tooltip content="Edit" position="top">
             <FaEdit className="icon-button" />
           </Tooltip>
         </Link>

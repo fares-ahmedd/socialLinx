@@ -12,16 +12,16 @@ function GridPostItem({ post }: GridPostItemProps) {
   return (
     <li className="relative">
       <Link to={`/posts/${post.$id} `}>
-        <div className=" min-h-[200px] min-w-[200px]  block m-auto rounded-md bg-dark-4  ">
-          <h1 className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 animate-pulse">
+        <span className=" min-h-[200px] min-w-[200px]  block m-auto rounded-md bg-dark-4   ">
+          <span className="absolute transform block -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 animate-pulse">
             Loading image...
-          </h1>
+          </span>
           <img
             src={post.imageUrl}
             alt="PostImage "
             className="relative w-full h-full"
           />
-        </div>
+        </span>
       </Link>
 
       <div className="absolute top-4 right-2">
@@ -32,7 +32,7 @@ function GridPostItem({ post }: GridPostItemProps) {
         <LikePost post={post} />
       </div>
 
-      <div className="absolute bottom-3 left-3 flex-center gap-3">
+      <div className="absolute bottom-3 left-3 flex-center gap-3 bg-black/80 text-white p-2 rounded-md ">
         <img
           src={post.creator.imageUrl}
           alt="Post Creator"
@@ -40,7 +40,7 @@ function GridPostItem({ post }: GridPostItemProps) {
         />
         <p>{post.creator.name}</p>
       </div>
-      <div className="absolute bg-black/80 text-white p-4 top-2 left-2 rounded-md opacity-70 text-sm uppercase">
+      <div className="absolute bg-black/80 text-white p-4 rounded-md top-2 left-2  opacity-70 text-sm uppercase">
         #{post.tags}
       </div>
     </li>

@@ -25,27 +25,28 @@ const AuthContext = createContext<IContextType>(InitialState);
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<IUser>(InitialUser);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isAuth, setIsAuth] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAuth, setIsAuth] = useState(true);
 
   const navigate = useNavigate();
-  useEffect(() => {
-    setIsMounted(true);
 
-    if (!isMounted) {
-      if (
-        localStorage.getItem("cookieFallback") === "[]" ||
-        !localStorage.getItem("cookieFallback")
-      ) {
-        navigate("/login");
-      } else {
-        checkAuthUser();
-      }
+  useEffect(() => {
+    if (
+      localStorage.getItem("cookieFallback") === "[]" ||
+      !localStorage.getItem("cookieFallback")
+    ) {
+      setIsAuth(false);
+      navigate("/login");
+    } else {
+      checkAuthUser();
     }
-  }, [isMounted, navigate]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setIsAuth]);
 
   async function checkAuthUser(): Promise<boolean | undefined> {
+    setIsLoading(true);
+
     try {
       const currentAccount = await getCurrentUser();
       if (currentAccount) {

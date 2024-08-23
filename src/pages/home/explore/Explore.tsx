@@ -8,7 +8,6 @@ import GridPostItem from "./GridPostItem";
 import LoadingSpinner from "@/ui/LoadingSpinner";
 import FilterPosts from "./FilterPosts";
 import HeaderContainer from "./HeaderContainer";
-import { shuffleArray } from "@/utils/helper";
 import LoadMoreButton from "./LoadMoreButton";
 
 function Explore() {
@@ -19,8 +18,7 @@ function Explore() {
   const { data, isPending: isLoading } = useGetPosts(postsAmount);
   const { data: totalPosts } = useGetRecentPosts();
 
-  const posts = shuffleArray(data?.documents);
-  console.log(posts);
+  const posts = data?.documents;
 
   let filteredPosts = posts;
 
@@ -29,13 +27,15 @@ function Explore() {
       (person) => person.creator.name === query
     );
   }
+
   useEffect(() => {
     if (scrollDownRef.current && postsAmount > 6) {
       scrollDownRef.current.scrollIntoView({ behavior: "instant" });
     }
   }, [isLoading, postsAmount]);
+
   return (
-    <div className="explore-container">
+    <section className="explore-container">
       {isLoading ? (
         <div className="flex-1 flex-center">
           <LoadingSpinner />
@@ -62,7 +62,7 @@ function Explore() {
         </>
       )}
       <span ref={scrollDownRef}></span>
-    </div>
+    </section>
   );
 }
 

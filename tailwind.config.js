@@ -53,10 +53,30 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        "fade-down": {
+          from: { transform: "translateY(-20px)", opacity: "0" },
+          to: { transform: "translateY(0px)", opacity: "1" },
+        },
+        "fade-up": {
+          from: { transform: "translateY(20px)", opacity: "0" },
+          to: { transform: "translateY(0px)", opacity: "1" },
+        },
+        "fade-left": {
+          from: { transform: "translateX(-20px)", opacity: "0" },
+          to: { transform: "translateX(0px)", opacity: "1" },
+        },
+        "fade-right": {
+          from: { transform: "translateX(20px)", opacity: "0" },
+          to: { transform: "translateX(0px)", opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-down": "fade-down 0.8s ease-out",
+        "fade-up": "fade-up 0.8s ease-out",
+        "fade-left": "fade-left 0.8s ease-out",
+        "fade-right": "fade-right 0.8s ease-out",
       },
     },
   },

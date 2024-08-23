@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  addCommentToPost,
   createPost,
   createUserAccount,
   deletePost,
@@ -10,6 +11,7 @@ import {
   getRecentPosts,
   getUserById,
   getUsers,
+  getUsersByIds,
   likePost,
   savePost,
   singInAccount,
@@ -128,6 +130,20 @@ export const useDeleteSavedPost = () => {
   });
 };
 
+export const useAddComment = () => {
+  return useMutation({
+    mutationFn: ({
+      postId,
+      userId,
+      content,
+    }: {
+      postId: string;
+      userId: string;
+      content: string;
+    }) => addCommentToPost({ postId, userId, content }),
+  });
+};
+
 export const useGetCurrentUser = () => {
   const getCurrentUserQuery = useMemo(
     () => ({
@@ -191,6 +207,14 @@ export const useGetUserById = (userId: string) => {
     queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
     queryFn: () => getUserById(userId),
     enabled: !!userId,
+  });
+};
+
+export const useGetUsersByIds = (userIds: string[]) => {
+  return useQuery({
+    queryKey: ["users", userIds],
+    queryFn: () => getUsersByIds(userIds),
+    enabled: userIds.length > 0,
   });
 };
 

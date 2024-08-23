@@ -25,20 +25,20 @@ const Tooltip: React.FC<TooltipProps> = ({
   };
 
   return (
-    <div
+    <span
       className={`relative inline-block ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {children}
       {showTooltip && (
-        <div
-          className={`absolute bg-dark-4 opacity-80 text-white py-1 px-2 rounded ${positionClasses[position]} z-50`}
+        <span
+          className={`absolute bg-dark-4 opacity-80 text-white py-1 px-2 rounded ${positionClasses[position]} z-[48594984894984]`}
         >
           {content}
-        </div>
+        </span>
       )}
-    </div>
+    </span>
   );
 };
 

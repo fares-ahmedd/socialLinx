@@ -1,3 +1,4 @@
+import { useUserContext } from "@/context/AuthContext";
 import { useSignOutAccount } from "@/lib/react-query/QueriesAndMutations";
 import LoadingSpinner from "@/ui/LoadingSpinner";
 import { useEffect } from "react";
@@ -10,12 +11,14 @@ export default function Logout() {
     isSuccess,
     isPending: isLoading,
   } = useSignOutAccount();
+  const { setIsAuth } = useUserContext();
   const navigate = useNavigate();
   useEffect(() => {
     if (isSuccess) {
+      setIsAuth(false);
       navigate("/login");
     }
-  }, [isSuccess, navigate]);
+  }, [isSuccess, navigate, setIsAuth]);
 
   return (
     <button

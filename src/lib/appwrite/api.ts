@@ -53,7 +53,6 @@ export async function singInAccount(user: { email: string; password: string }) {
       user.email,
       user.password
     );
-    console.log(session);
 
     return session;
   } catch (error) {
@@ -376,6 +375,27 @@ export async function getUserById(userId: string) {
   }
 }
 
+export async function getUsersByIds(userIds: string[]) {
+  try {
+    const users = await Promise.all(
+      userIds.map(async (userId) => {
+        const user = await databases.getDocument(
+          appwriteConfig.databaseId,
+          appwriteConfig.userCollectionId,
+          userId
+        );
+        if (!user) throw new Error(`User not found for ID: ${userId}`);
+        return user;
+      })
+    );
+
+    return users;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 export async function updateUser(user: IUpdateUser) {
   const hasFileToUpdate = user.file.length > 0;
   try {
@@ -428,6 +448,45 @@ export async function updateUser(user: IUpdateUser) {
     }
 
     return updatedUser;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function addCommentToPost({
+  postId,
+  userId,
+  content,
+}: {
+  postId: string;
+  userId: string;
+  content: string;
+}) {
+  try {
+    const post = await getPostById(postId);
+    if (!post) throw Error("Post not found");
+
+    const newComment = JSON.stringify({
+      id: ID.unique(),
+      userId,
+      content,
+      createdAt: new Date(),
+    });
+
+    const updatedComments = [...(post.comments || []), newComment];
+
+    const updatedPost = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      postId,
+      {
+        comments: updatedComments,
+      }
+    );
+
+    if (!updatedPost) throw Error;
+
+    return updatedPost;
   } catch (error) {
     console.log(error);
   }
