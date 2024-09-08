@@ -131,6 +131,7 @@ export const useDeleteSavedPost = () => {
 };
 
 export const useAddComment = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({
       postId,
@@ -141,6 +142,12 @@ export const useAddComment = () => {
       userId: string;
       content: string;
     }) => addCommentToPost({ postId, userId, content }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+      });
+      toast({ description: "Your comment has been added to the post" });
+    },
   });
 };
 

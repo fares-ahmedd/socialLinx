@@ -1,6 +1,5 @@
 import { useGetUsersByIds } from "@/lib/react-query/QueriesAndMutations";
 import CollapseText from "@/ui/CollapseText";
-import LoadingSpinner from "@/ui/LoadingSpinner";
 import { formatDateString } from "@/utils/helper";
 import { Models } from "appwrite";
 
@@ -11,16 +10,9 @@ function PostComments({ post }: { post: Models.Document }) {
 
   const usersIds = comments.map((comment: any) => comment.userId);
 
-  const { data: users, isPending: isLoading } = useGetUsersByIds(usersIds);
+  const { data: users } = useGetUsersByIds(usersIds);
 
   if (comments.length < 1) return;
-
-  if (isLoading)
-    return (
-      <div className="my-6 flex-center">
-        <LoadingSpinner />
-      </div>
-    );
 
   return (
     <>

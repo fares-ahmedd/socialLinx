@@ -1,3 +1,4 @@
+import { useUserContext } from "@/context/AuthContext";
 import { FaEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -8,6 +9,8 @@ type Props = {
 };
 
 function ProfileInfo({ name, username, id }: Props) {
+  const { user } = useUserContext();
+
   return (
     <section className="my-4 flex-between items-center">
       <article>
@@ -15,9 +18,11 @@ function ProfileInfo({ name, username, id }: Props) {
         <p className=" text-gray-500">@{username}</p>
       </article>
 
-      <Link to={`/update-profile/${id}`} className="prim-btn ">
-        <FaEdit className="text-3xl" /> Edit Profile
-      </Link>
+      {user.id === id && (
+        <Link to={`/update-profile/${id}`} className="prim-btn ">
+          <FaEdit className="text-3xl" /> Edit Profile
+        </Link>
+      )}
     </section>
   );
 }

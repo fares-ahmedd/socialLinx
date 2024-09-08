@@ -2,7 +2,7 @@ import { useGetUsers } from "@/lib/react-query/QueriesAndMutations";
 import LoadingSpinner from "@/ui/LoadingSpinner";
 import UserItem from "./UserItem";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useUserContext } from "@/context/AuthContext";
 import { shuffleArray } from "@/utils/helper";
 type Props = {
@@ -12,8 +12,10 @@ function RightSidebar({ isPage = false }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
   const { user } = useUserContext();
   const { data, isLoading, isError: isErrorCreators } = useGetUsers();
-
-  const allUsers = shuffleArray(data?.documents);
+  const allUsers = useMemo(
+    () => shuffleArray(data?.documents),
+    [data?.documents]
+  );
 
   const filterCurrentUser = allUsers?.filter((usr) => usr.$id !== user.id);
 

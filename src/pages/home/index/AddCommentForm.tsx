@@ -1,4 +1,3 @@
-import { useToast } from "@/components/ui/use-toast";
 import { useUserContext } from "@/context/AuthContext";
 import { useAddComment } from "@/lib/react-query/QueriesAndMutations";
 import { Models } from "appwrite";
@@ -9,7 +8,6 @@ function AddCommentForm({ post }: { post: Models.Document }) {
   const [query, setQuery] = useState("");
   const { mutate: addCommentToPost, isPending: isLoading } = useAddComment();
   const { user } = useUserContext();
-  const { toast } = useToast();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -22,7 +20,6 @@ function AddCommentForm({ post }: { post: Models.Document }) {
       userId: user.id,
     });
     setQuery("");
-    toast({ description: "Your comment has been added to the post" });
   };
   return (
     <form className="flex items-center gap-2  my-2" onSubmit={handleSubmit}>
