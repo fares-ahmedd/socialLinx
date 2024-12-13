@@ -10,7 +10,7 @@ function AuthLayout() {
         <img
           src="/auth-preview.webp"
           alt="App Poster"
-          className="   aspect-video object-cover w-full h-full "
+          className="aspect-video object-cover w-full h-full "
         />
       </div>
     </>

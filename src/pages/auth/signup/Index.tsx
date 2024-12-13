@@ -93,11 +93,12 @@ function SignUpPage() {
           name="name"
           render={({ field }) => (
             <FormItem className="animate-fade-left">
-              <FormLabel>Name:</FormLabel>
+              <FormLabel htmlFor="name">Name:</FormLabel>
               <FormControl>
                 <Input
                   type="text"
                   className="shad-input"
+                  id="name"
                   autoFocus
                   {...field}
                   disabled={isCreating}
@@ -112,10 +113,11 @@ function SignUpPage() {
           name="username"
           render={({ field }) => (
             <FormItem className="animate-fade-left">
-              <FormLabel>Username:</FormLabel>
+              <FormLabel htmlFor="username">Username:</FormLabel>
               <FormControl>
                 <Input
                   type="text"
+                  id="username"
                   className="shad-input"
                   {...field}
                   disabled={isCreating}
@@ -130,10 +132,11 @@ function SignUpPage() {
           name="email"
           render={({ field }) => (
             <FormItem className="animate-fade-left">
-              <FormLabel>Email:</FormLabel>
+              <FormLabel htmlFor="email">Email:</FormLabel>
               <FormControl>
                 <Input
                   type="email"
+                  id="email"
                   className="shad-input"
                   {...field}
                   disabled={isCreating}
@@ -148,7 +151,7 @@ function SignUpPage() {
           name="password"
           render={({ field }) => (
             <FormItem className="animate-fade-left">
-              <FormLabel>Password:</FormLabel>
+              <FormLabel htmlFor="password">Password:</FormLabel>
               <FormControl>
                 <PasswordInput field={field} isLogging={isCreating} />
               </FormControl>
@@ -159,7 +162,7 @@ function SignUpPage() {
 
         <Button
           type="submit"
-          className="shad-button_primary animate-fade-down"
+          className="shad-button_primary animate-fade-down !text-white"
           disabled={isCreating}
         >
           {isCreating ? (
@@ -170,15 +173,17 @@ function SignUpPage() {
             "Signup"
           )}
         </Button>
-        <p className="mt-2 text-center text-small-regular text-light-2 animate-fade-down ">
-          Already have an account?{" "}
-          <Link
-            to={"/login"}
-            className="text-lg font-bold text-primary-500 hover:text-primary-300 hover:underline"
-          >
-            Login
-          </Link>
-        </p>
+        {!isCreating && (
+          <div className="mt-2 text-center text-small-regular text-light-2 animate-fade-down ">
+            <span> Already have an account? </span>
+            <Link
+              to={"/login"}
+              className="text-lg font-bold text-primary-500 hover:text-primary-300 hover:underline"
+            >
+              Login
+            </Link>
+          </div>
+        )}
       </form>
     </Form>
   );

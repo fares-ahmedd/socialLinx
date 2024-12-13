@@ -81,10 +81,11 @@ function LoginPage() {
           name="email"
           render={({ field }) => (
             <FormItem className="animate-fade-left">
-              <FormLabel>Email:</FormLabel>
+              <FormLabel htmlFor="email">Email:</FormLabel>
               <FormControl>
                 <Input
                   type="email"
+                  id="email"
                   className="shad-input"
                   {...field}
                   disabled={isLogging || isLoading}
@@ -102,7 +103,7 @@ function LoginPage() {
           disabled={isLoading || isLogging}
           render={({ field }) => (
             <FormItem className="animate-fade-left">
-              <FormLabel>Password:</FormLabel>
+              <FormLabel htmlFor="password">Password:</FormLabel>
               <FormControl>
                 <PasswordInput
                   field={field}
@@ -117,7 +118,7 @@ function LoginPage() {
 
         <Button
           type="submit"
-          className="shad-button_primary animate-fade-left"
+          className="shad-button_primary animate-fade-left !text-white"
           disabled={isLogging || isLoading}
         >
           {isLogging || isLoading ? (
@@ -129,15 +130,17 @@ function LoginPage() {
           )}
         </Button>
       </form>
-      <p className="mt-2 text-center text-small-regular text-light-2 animate-fade-up">
-        don't have an Account?{" "}
-        <Link
-          to={"/signup"}
-          className="text-lg font-bold text-primary-500 hover:text-primary-300 hover:underline"
-        >
-          Register
-        </Link>
-      </p>
+      {!isLoading && !isLogging && (
+        <div className="mt-2 text-center text-small-regular text-light-2 animate-fade-up">
+          <span> don't have an Account? </span>
+          <Link
+            to={"/signup"}
+            className="text-lg font-bold text-primary-500 hover:text-primary-300 hover:underline"
+          >
+            Register
+          </Link>
+        </div>
+      )}
     </Form>
   );
 }

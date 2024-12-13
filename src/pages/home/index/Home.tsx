@@ -36,8 +36,8 @@ function Home() {
       </div>
     );
   return (
-    <main className="flex flex-1">
-      <div className="home-container">
+    <div className="flex ">
+      <div className="home-container flex-1">
         <div className="home-posts">
           <h2 className="w-full text-left h3-bold md:h2-bold ">Home</h2>
           {!isLoadingPosts ? (
@@ -65,7 +65,7 @@ function Home() {
         </div>
       </div>
       <RightSidebar />
-    </main>
+    </div>
   );
 }
 

@@ -30,8 +30,18 @@ function UserItem({ user }: Props) {
           alt="Logo"
           className="w-20 h-20 rounded-full m-auto"
         />
-        <span className="text-3xl my-2 text-center block ">{user.name}</span>
-        <span className="text-gray-400 text-center block">{user.username}</span>
+        <span
+          className="text-3xl my-2 text-center block truncate"
+          title={user.name}
+        >
+          {user.name}
+        </span>
+        <span
+          className="text-gray-400 text-center block truncate"
+          title={user.username}
+        >
+          {user.username}
+        </span>
       </Link>
       <button
         className={`prim-btn mt-4 mx-auto p-2 ${

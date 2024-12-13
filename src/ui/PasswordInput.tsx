@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 type Props = {
@@ -9,33 +9,25 @@ type Props = {
 };
 function PasswordInput({ field, isLogging = false, isLoading = false }: Props) {
   const [isShownPassword, setIsShownPassword] = useState(false);
-  const passwordEl = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    if (isShownPassword && passwordEl.current) {
-      passwordEl.current.type = "text";
-    }
-    if (!isShownPassword && passwordEl.current) {
-      passwordEl.current.type = "password";
-    }
-  }, [isShownPassword]);
 
   return (
     <div className="relative">
       <Input
-        type="password"
+        type={isShownPassword ? "text" : "password"}
         className="shad-input "
+        id="password"
         {...field}
         disabled={isLogging || isLoading}
-        ref={passwordEl}
         autoComplete="new-password"
       />
       <button
-        className="absolute right-3 bottom-2 z-50 text-white"
+        className="absolute right-3 bottom-2 z-50 text-[#d94514] text-xl"
         type="button"
         onClick={() =>
           setIsShownPassword((isShownPassword) => !isShownPassword)
         }
+        aria-label="toggle password visibility"
+        title="toggle password visibility"
       >
         {isShownPassword ? <FaEyeSlash /> : <FaEye />}
       </button>

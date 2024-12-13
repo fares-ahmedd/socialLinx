@@ -35,7 +35,7 @@ function RightSidebar({ isPage = false }: Props) {
     );
   return (
     <aside
-      className={`overflow-auto px-6 custom-scrollbar ${
+      className={`overflow-auto max-lg:max-w-[280px] px-2 custom-scrollbar ${
         !isPage ? "max-lg:hidden" : ""
       }  ${isPage ? "w-full" : ""}`}
     >
