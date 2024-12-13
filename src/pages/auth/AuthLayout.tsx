@@ -8,7 +8,7 @@ function AuthLayout() {
       </section>
       <div className="hidden md:block w-1/2 h-full">
         <img
-          src="/auth-preview.jpg"
+          src="/auth-preview.webp"
           alt="App Poster"
           className="   aspect-video object-cover w-full h-full "
         />

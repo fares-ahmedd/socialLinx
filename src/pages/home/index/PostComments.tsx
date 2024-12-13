@@ -24,7 +24,7 @@ function PostComments({ post }: { post: Models.Document }) {
             <div>
               <div className="h-11 w-11 rounded-full">
                 <img
-                  src={(users && users[index].imageUrl) ?? "/unknown.png"}
+                  src={(users && users[index].imageUrl) ?? "/unknown.webp"}
                   alt="user Comment"
                   className="rounded-full h-full w-full"
                 />

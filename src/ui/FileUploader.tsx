@@ -20,7 +20,7 @@ function FileUploader({ fieldChange, mediaUrl }: FileUploaderProps) {
   );
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: { "image/*": [".png", ".jpeg", ".jpg", ".svg"] },
+    accept: { "image/*": [".webp", ".jpeg", ".webp", ".svg"] },
   });
   return (
     <div

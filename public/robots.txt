@@ -1,0 +1,22 @@
+# Robots.txt for SocialLinx
+
+# Sitemap location (if you have one, recommended to create)
+Sitemap: https://social-linx.vercel.app/sitemap.xml
+
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+
+# Restrict access to specific directories
+Disallow: /login
+Disallow: /signup
+Disallow: /create-post
+Disallow: /update-post
+Disallow: /update-profile
+
+# Optional: Crawl-delay to prevent overwhelming the server
+Crawl-delay: 10
+
+# Block specific bot/crawler if needed
+User-agent: BadBot
+Disallow: /

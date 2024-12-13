@@ -30,7 +30,7 @@ function TopSidebar() {
         <div className="gap-3 flex-center">
           <Link to={`/profile/${user.id}`}>
             <img
-              src={user.imageUrl || "/unknown.png"}
+              src={user.imageUrl || "/unknown.webp"}
               alt="profile"
               className="w-10 h-10 rounded-full"
             />

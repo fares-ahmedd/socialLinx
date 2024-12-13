@@ -18,7 +18,7 @@ function DetailsInfo({ post, user }: Details) {
       <div className="flex items-center gap-3">
         <Link to={`/profile/${post?.creator.$id}`}>
           <img
-            src={post?.creator?.imageUrl || "/no-post-image.jpg"}
+            src={post?.creator?.imageUrl || "/no-post-image.webp"}
             alt="Post Creator"
             className="w-12 rounded-full lg:h-12"
           />

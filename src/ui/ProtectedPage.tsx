@@ -1,20 +1,20 @@
 import { useUserContext } from "@/context/AuthContext";
-import { ReactNode, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { ReactNode } from "react";
+import { Navigate } from "react-router-dom";
+import LoadingSpinner from "./LoadingSpinner";
 
 interface ProtectedPageProps {
   children: ReactNode;
 }
 function ProtectedPage({ children }: ProtectedPageProps) {
   const { isAuth, isLoading } = useUserContext();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isAuth && !isLoading) {
-      navigate("/login");
-    }
-  }, [isAuth, isLoading, navigate]);
-  if (isAuth) return children;
+  if (isLoading)
+    return (
+      <div className="h-screen w-full flex-center">
+        <LoadingSpinner />
+      </div>
+    );
+  return isAuth ? children : <Navigate to="/login" />;
 }
 
 export default ProtectedPage;

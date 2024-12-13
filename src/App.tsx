@@ -22,7 +22,7 @@ const App = () => {
     <BrowserRouter>
       <QueryProvider>
         <AuthProvider>
-          <main className="flex h-screen">
+          <main className="flex full-screen">
             <Routes>
               <Route element={<AuthLayout />}>
                 <Route path="/login" element={<LoginPage />} />

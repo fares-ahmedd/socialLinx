@@ -292,6 +292,10 @@
 form p {
   color: red;
 }
+.full-screen {
+  height: 100vh;
+  height: 100dvh;
+}
 
 ol li {
   background-color: #21262d;

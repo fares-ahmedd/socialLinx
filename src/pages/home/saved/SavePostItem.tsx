@@ -14,8 +14,8 @@ function SavePostItem({ post, profile = false }: Props) {
         <img
           src={
             profile
-              ? post?.post?.imageUrl || "/no-post-image.jpg"
-              : post.imageUrl || "/no-post-image.jpg"
+              ? post?.post?.imageUrl || "/no-post-image.webp"
+              : post.imageUrl || "/no-post-image.webp"
           }
           className="rounded-sm"
           alt="PostImg"

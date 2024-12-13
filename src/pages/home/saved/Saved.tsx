@@ -27,7 +27,7 @@ function Saved() {
       <div className="flex items-center gap-4 pb-4 border-b ">
         <div className="w-14 h-14">
           <img
-            src="/save-sold.png"
+            src="/save-sold.webp"
             alt="Save Post"
             className="w-full h-full object-cover"
           />

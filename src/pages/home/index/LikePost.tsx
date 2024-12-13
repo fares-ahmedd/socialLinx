@@ -35,8 +35,8 @@ function LikePost({ post }: { post: Models.Document }) {
         <img
           src={`${
             checkIsLiked(likes, user.id)
-              ? "/heart-sold.png"
-              : "/heart-outline.png"
+              ? "/heart-sold.webp"
+              : "/heart-outline.webp"
           } `}
           alt="heart icon"
           width={25}

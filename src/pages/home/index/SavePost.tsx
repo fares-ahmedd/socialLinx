@@ -54,7 +54,7 @@ function SavePost({ post }: { post: Models.Document | undefined }) {
     <button onClick={handleSavePost} disabled={delayClick}>
       <Tooltip content="Save" position="top" className="w-[30px] h-[30px]">
         <img
-          src={`${isSaved ? "/save-sold.png" : "/save-outline.png"}`}
+          src={`${isSaved ? "/save-sold.webp" : "/save-outline.webp"}`}
           alt="save post icon"
           className="w-full h-full object-cover"
         />

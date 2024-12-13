@@ -12,20 +12,11 @@ export const InitialUser = {
   bio: "",
 };
 
-const InitialState = {
-  user: InitialUser,
-  isLoading: false,
-  isAuth: false,
-  setUser: () => {},
-  setIsAuth: () => {},
-  checkAuthUser: async () => false as boolean,
-};
-
-const AuthContext = createContext<IContextType>(InitialState);
+const AuthContext = createContext<IContextType | null>(null);
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<IUser>(InitialUser);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(true);
 
   const navigate = useNavigate();
@@ -40,7 +31,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     } else {
       checkAuthUser();
     }
-
+    setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setIsAuth]);
 

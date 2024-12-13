@@ -25,7 +25,7 @@ function PostContent({ post }: { post: Models.Document }) {
         </h1>
         <Link to={`/posts/${post.$id}`}>
           <img
-            src={post.imageUrl || "/no-post-image.jpg"}
+            src={post.imageUrl || "/no-post-image.webp"}
             alt="no post"
             loading="lazy"
             className="absolute z-10 w-full h-full "
