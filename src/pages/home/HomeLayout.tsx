@@ -4,15 +4,15 @@ import TopSidebar from "@/features/top-sidebar/TopSidebar";
 import BottomSidebar from "@/features/bottom-sidebar/BottomSidebar";
 function AppLayout() {
   return (
-    <main className="w-full md:flex">
+    <div className="w-full md:flex">
       <TopSidebar />
       <LeftSidebar />
-      <section className="flex flex-1 h-calc md:h-full">
+      <section className="flex flex-1 h-calc md:h-full max-w-screen-2xl mx-auto">
         <Outlet />
       </section>
 
       <BottomSidebar />
-    </main>
+    </div>
   );
 }
 

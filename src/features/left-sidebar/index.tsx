@@ -5,14 +5,14 @@ import Logout from "./Logout";
 
 function LeftSidebar() {
   return (
-    <nav className="leftsidebar">
-      <aside className="flex flex-col gap-6">
+    <aside className="leftsidebar">
+      <nav className="flex flex-col gap-6">
         <Logo />
         <UserInfo />
         <NavLinks />
-      </aside>
+      </nav>
       <Logout />
-    </nav>
+    </aside>
   );
 }
 
